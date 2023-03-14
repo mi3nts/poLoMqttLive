@@ -1,10 +1,14 @@
+# Added by Lakitha 
+*.yaml 
+*.log
+
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
 
-*.yaml 
-*.log
 
 # C extensions
 *.so
