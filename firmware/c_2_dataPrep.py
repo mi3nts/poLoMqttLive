@@ -20,16 +20,16 @@ rawPklsFolder        = mD.rawPklsFolder
 referencePklsFolder  = mD.referencePklsFolder
 mergedPklsFolder     = mD.mergedPklsFolder
 
-# YXXDR     = mP.superReaderV2(airMarID,"YXXDR")
-# pd.to_pickle(YXXDR ,mP.getPathGeneric(referencePklsFolder,airMarID,"YXXDR","pkl"))
+YXXDR     = mP.superReaderV2(airMarID,"YXXDR")
+pd.to_pickle(mP.dropIndexDuplicates(YXXDR) ,mP.getPathGeneric(referencePklsFolder,airMarID,"YXXDR","pkl"))
 
-# WIMDA     = mP.superReader(airMarID,"WIMDA")
-# pd.to_pickle(WIMDA ,mP.getPathGeneric(referencePklsFolder,airMarID,"WIMDA","pkl"))
+WIMDA     = mP.superReader(airMarID,"WIMDA")
+pd.to_pickle(mP.dropIndexDuplicates(WIMDA) ,mP.getPathGeneric(referencePklsFolder,airMarID,"WIMDA","pkl"))
 
 WIMDA  = pd.read_pickle(mP.getPathGeneric(referencePklsFolder,airMarID,"WIMDA","pkl"))
 YXXDR  = pd.read_pickle(mP.getPathGeneric(referencePklsFolder,airMarID,"YXXDR","pkl"))
 
-print(mP.dropIndexDuplicates(WIMDA))
+print(WIMDA)
 print(YXXDR)
 
 

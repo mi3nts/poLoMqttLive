@@ -207,7 +207,7 @@ def sensorReaderV2(nodeID,sensorID,floatSum1,floatSum2):
             print("[ERROR] Could not publish data, error: {}".format(e))
 
     dfIn = pd.concat(dataIn)
-    return dropIndexDuplicates(dfIn.dropna().sort_index());
+    return dfIn.dropna().sort_index();
 
     # return ;
 
