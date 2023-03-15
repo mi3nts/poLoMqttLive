@@ -192,23 +192,16 @@ def sensorReaderV2(nodeID,sensorID,floatSum1,floatSum2):
     dataIn = []
 
     for f in dataInPre:
-        # try:
+        try:
         
-            dataFrame = pd.read_csv(f)
-            print("Debugging")
-            print(dataFrame)
-            print(dataFrame.dtypes)
-            for col in dataFrame.columns:
-                print("-"+col+"-")
-            print("---------")
-            floatSumNow = sum(dataFrame.dtypes == float64 )
-
+            dataNow = pd.read_csv(f)
+            floatSumNow = sum(dataNow.dtypes == float64 )
             print("Reading " + f+ ": floatSum ==> " + str(floatSumNow)) 
-   
 
             if(floatSum1 == floatSumNow):
                 dataNow = pd.read_csv(f)
-                dataNow.rename(columns={"dateTime": "dateTime2"})
+                dataNow.rename(columns={"dateTime": "dateTime2"}, inplace = True)
+                print(dataNow)
                 dataNow['dateTime'] = pd.to_datetime(dataNow['dateTime2'])
                 print(dataNow)
                 # dataNow['dateTime2'] = pd.to_datetime(dataNow['dateTime'])
@@ -231,8 +224,8 @@ def sensorReaderV2(nodeID,sensorID,floatSum1,floatSum2):
                 dataNow  = dataNow.set_index('dateTime').resample(timeSpan).mean()
                 dataIn.append(dataNow)             
 
-        # except Exception as e:
-        #     print("[ERROR] Could not publish data, error: {}".format(e))
+        except Exception as e:
+            print("[ERROR] Could not publish data, error: {}".format(e))
 
     return pd.concat(dataIn).dropna().sort_index();
 
