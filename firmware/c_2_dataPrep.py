@@ -29,22 +29,22 @@ mergedPklsFolder     = mD.mergedPklsFolder
 WIMDA  = pd.read_pickle(mP.getPathGeneric(referencePklsFolder,airMarID,"WIMDA","pkl"))
 YXXDR  = pd.read_pickle(mP.getPathGeneric(referencePklsFolder,airMarID,"YXXDR","pkl"))
 
-print(WIMDA.dropna().sort_index())
+# print(WIMDA.dropna().sort_index())
 print(YXXDR.dropna().sort_index())
 
 
 
-print(WIMDA.dropna())
+# print(WIMDA.dropna())
 print(YXXDR.dropna())
 
 
 
 
-print(WIMDA.sort_index())
+# print(WIMDA.sort_index())
 print(YXXDR.sort_index())
 
 
-print(WIMDA.drop_duplicates('first'))
+# print(WIMDA.drop_duplicates('first'))
 print(YXXDR.drop_duplicates('first'))
 
 
