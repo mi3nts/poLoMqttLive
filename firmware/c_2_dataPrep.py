@@ -20,20 +20,15 @@ rawPklsFolder        = mD.rawPklsFolder
 referencePklsFolder  = mD.referencePklsFolder
 mergedPklsFolder     = mD.mergedPklsFolder
 
-# YXXDR     = mP.superReaderV2(airMarID,"YXXDR")
-# pd.to_pickle(YXXDR ,mP.getPathGeneric(referencePklsFolder,airMarID,"YXXDR","pkl") )
+YXXDR     = mP.superReaderV2(airMarID,"YXXDR")
+pd.to_pickle(YXXDR ,mP.getPathGeneric(referencePklsFolder,airMarID,"YXXDR","pkl") )
 
 # WIMDA     = mP.superReader(airMarID,"WIMDA")
 # pd.to_pickle(WIMDA ,mP.getPathGeneric(referencePklsFolder,airMarID,"WIMDA","pkl") )
 
-WIMDA  = pd.read_pickle(mP.getPathGeneric(referencePklsFolder,airMarID,"WIMDA","pkl"))
-YXXDR  = pd.read_pickle(mP.getPathGeneric(referencePklsFolder,airMarID,"YXXDR","pkl"))
-print("--------------")
-print(WIMDA.sort_values(by=['dateTime']))
-print(YXXDR.tail())
-
-for row in YXXDR.iterrows():
-    print(row)
+# WIMDA  = pd.read_pickle(mP.getPathGeneric(referencePklsFolder,airMarID,"WIMDA","pkl"))
+# YXXDR  = pd.read_pickle(mP.getPathGeneric(referencePklsFolder,airMarID,"YXXDR","pkl"))
+# # print("--------------")
 # for nodeData in nodeIDs:
 #     try:
 #         nodeID        = nodeData['nodeID']
