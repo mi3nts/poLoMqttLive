@@ -206,7 +206,10 @@ def sensorReaderV2(nodeID,sensorID,floatSum1,floatSum2):
         except Exception as e:
             print("[ERROR] Could not publish data, error: {}".format(e))
 
-    return dropIndexDuplicates(pd.concat(dataIn).dropna().sort_index());
+
+    return pd.concat(dataIn);
+
+    # return dropIndexDuplicates(pd.concat(dataIn).dropna().sort_index());
 
 
 
@@ -287,6 +290,36 @@ def oobClimateCheck(mintsData,nodeID,climateSensor,dateNow,modelsPklsFolder,sens
     writePath = getPathGenericParent(modelsPklsFolder,"OOBStats","csv")       
     writeCSV3(writePath,climateSensorStatus)
     return mintsData;
+
+
+
+
+def climateDataPrepV2(nodeData,nodeID,climateSensor,WIMDA,YXXDR,mergedPklsFolder):
+    dataCropDate  = datetime.datetime.strptime(nodeData['climateSensorBegin'], '%Y-%m-%d')
+    climateSensor =  nodeData['climateSensor']
+    gpsSensor     =  nodeData['climateSensor']
+
+    print("Reading Data for Node: " + nodeID)
+    print("GPS Sensor ID: " + nodeID)
+    
+    GPS             = superReaderV2(nodeID,"GPGGALR")
+    climateSensor   = superReaderV2(nodeID,climateSensor)
+
+
+
+    mintsData = merger([climateSensor, WIMDA,YXXDR, GPS])
+    print("GPS Cropping")
+    pd.to_pickle(mintsData,getPathGeneric(mergedPklsFolder,nodeID,"climateData","pkl") )
+    mintsData = gpsCropCoordinates(mintsData,32.992179, -96.757777,0.0015,0.0015)
+    # Remove GPS Data 
+    mintsData = mintsData.drop('GPGGALR_Longitude', 1)
+    mintsData = mintsData.drop('GPGGALR_Latitude', 1)
+    pd.to_pickle(mintsData,getPathGeneric(mergedPklsFolder,nodeID,"climateDataWSTC","pkl") )
+    print("Sensor Cropping")
+    mintsData = mintsData[mintsData.index>dataCropDate]
+    pd.to_pickle(mintsData.dropna(),getPathGeneric(mergedPklsFolder,nodeID,"climateDataWSTCCurrent","pkl") )
+    print(mintsData)
+    print("-----------------------------------------------")
 
 
 def climateDataPrep(nodeData,nodeID,climateSensor,WIMDA,YXXDR,mergedPklsFolder):
