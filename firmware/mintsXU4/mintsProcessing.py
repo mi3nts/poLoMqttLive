@@ -195,11 +195,13 @@ def sensorReaderV2(nodeID,sensorID,floatSum1,floatSum2):
         try:
         
             dataFrame = pd.read_csv(f)
+            print(dataFrame)
             for col in dataFrame.columns:
                 print("-"+col+"-")
             floatSumNow = sum(dataFrame.dtypes == float64 )
 
             print("Reading " + f+ ": floatSum ==> " + str(floatSumNow)) 
+            print(dataNow['dateTime'])
 
             if(floatSum1 == floatSumNow):
                 dataNow = pd.read_csv(f)
