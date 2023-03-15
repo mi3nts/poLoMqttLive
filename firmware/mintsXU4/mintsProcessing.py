@@ -202,7 +202,7 @@ def sensorReaderV2(nodeID,sensorID,floatSum1,floatSum2):
                 # print(dataNow)
                 dataIn.append(dataNow)
             if len(dataIn)>5:
-                pd.concat(dataIn.sort())
+                pd.concat(dataIn).dropna()
 
         except Exception as e:
             print("[ERROR] Could not publish data, error: {}".format(e))
