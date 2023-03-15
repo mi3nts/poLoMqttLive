@@ -21,22 +21,23 @@ referencePklsFolder  = mD.referencePklsFolder
 mergedPklsFolder     = mD.mergedPklsFolder
 
 YXXDR     = mP.superReader(airMarID,"YXXDR")
-pd.to_pickle(YXXDR ,mP.getPathGeneric(referencePklsFolder,airMarID,"YXXDR","pkl") )
+print(YXXDR)
+# pd.to_pickle(YXXDR ,mP.getPathGeneric(referencePklsFolder,airMarID,"YXXDR","pkl") )
 
-WIMDA     = mP.superReader(airMarID,"WIMDA")
-pd.to_pickle(WIMDA ,mP.getPathGeneric(referencePklsFolder,airMarID,"WIMDA","pkl") )
+# WIMDA     = mP.superReader(airMarID,"WIMDA")
+# pd.to_pickle(WIMDA ,mP.getPathGeneric(referencePklsFolder,airMarID,"WIMDA","pkl") )
 
-WIMDA  = pd.read_pickle(mP.getPathGeneric(referencePklsFolder,airMarID,"WIMDA","pkl"))
-YXXDR  = pd.read_pickle(mP.getPathGeneric(referencePklsFolder,airMarID,"YXXDR","pkl"))
-print("--------------")
+# WIMDA  = pd.read_pickle(mP.getPathGeneric(referencePklsFolder,airMarID,"WIMDA","pkl"))
+# YXXDR  = pd.read_pickle(mP.getPathGeneric(referencePklsFolder,airMarID,"YXXDR","pkl"))
+# print("--------------")
 
-for nodeData in nodeIDs:
-    try:
-        nodeID        = nodeData['nodeID']
-        climateSensor = nodeData['climateSensor']
-        print("=====================MINTS=====================")
-        print("Prepearing Climate data for Node: " + nodeID +" with Climate Sensor: " + climateSensor)
-        print("-----------------------------------------------")
-        mP.climateDataPrep(nodeData,nodeID,climateSensor,WIMDA,YXXDR,mergedPklsFolder)
-    except Exception as e:
-        print("[ERROR] Could not publish data, error: {}".format(e))
+# for nodeData in nodeIDs:
+#     try:
+#         nodeID        = nodeData['nodeID']
+#         climateSensor = nodeData['climateSensor']
+#         print("=====================MINTS=====================")
+#         print("Prepearing Climate data for Node: " + nodeID +" with Climate Sensor: " + climateSensor)
+#         print("-----------------------------------------------")
+#         mP.climateDataPrep(nodeData,nodeID,climateSensor,WIMDA,YXXDR,mergedPklsFolder)
+#     except Exception as e:
+#         print("[ERROR] Could not publish data, error: {}".format(e))
