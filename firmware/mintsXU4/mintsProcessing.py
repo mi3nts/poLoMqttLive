@@ -310,7 +310,7 @@ def oobClimateCheck(mintsData,nodeID,climateSensor,dateNow,modelsPklsFolder,sens
                 ("sensorDate"         ,sensorDate),
                 ("dateNow"           ,dateNow)
                ])
-    print(climateSensorStatus)
+    # print(climateSensorStatus)
     writePath = getPathGenericParent(modelsPklsFolder,"OOBStats","csv")       
     writeCSV3(writePath,climateSensorStatus)
     return mintsData;
