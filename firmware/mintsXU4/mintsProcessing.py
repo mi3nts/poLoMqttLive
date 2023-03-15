@@ -157,6 +157,8 @@ def gpsCropCoordinatesV2(mintsData,gpsSensor,latitude,longitude,latRange,longRan
         mintsData = mintsData[mintsData.GPGGAPL_longitudeCoordinate>longitude-abs(longRange)]
         mintsData = mintsData[mintsData.GPGGAPL_longitudeCoordinate<longitude+abs(longRange)]        
         mintsData.drop(['GPGGAPL_latitudeCoordinate','GPGGAPL_longitudeCoordinate'], 1)
+        print("lklklklklk")
+        print(mintsData)
         return mintsData;
     
     return;
