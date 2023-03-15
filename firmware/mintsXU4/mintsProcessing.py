@@ -190,6 +190,7 @@ def sensorReader(nodeID,sensorID,floatSum):
 def sensorReaderV2(nodeID,sensorID,floatSum1,floatSum2):
     print("Reading " + sensorID + " data from node " + nodeID )
     dataInPre = glob.glob(dataFolder+ "/*/*"+nodeID+"/*/*/*/*"+sensorID+ "*.csv")
+    print(dataInPre)
     dataInPre.sort()
     dataIn = []
 
@@ -317,12 +318,12 @@ def getDataSuperReader(nodeID,sensorID,beginDate):
 
 def climateDataPrepV2(nodeData,nodeID,WIMDA,YXXDR):
 
-    climateData = getDataSuperReader(nodeID,nodeData['climateSensor'],nodeData['climateSensorBegin'])
+    # climateData = getDataSuperReader(nodeID,nodeData['climateSensor'],nodeData['climateSensorBegin'])
     gpsData     = getDataSuperReader(nodeID,nodeData['gpsSensor'],nodeData['gpsSensorBegin'])
 
-    mintsData   = merger([climateData, WIMDA,YXXDR, gpsData])
+    # mintsData   = merger([climateData, WIMDA,YXXDR, gpsData])
 
-    print(mintsData)
+    # print(mintsData)
 
     # print("GPS Cropping")
     # pd.to_pickle(mintsData,getPathGeneric(mergedPklsFolder,nodeID,"climateData","pkl") )
