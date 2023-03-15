@@ -30,7 +30,7 @@ WIMDA  = pd.read_pickle(mP.getPathGeneric(referencePklsFolder,airMarID,"WIMDA","
 YXXDR  = pd.read_pickle(mP.getPathGeneric(referencePklsFolder,airMarID,"YXXDR","pkl"))
 print("--------------")
 print(WIMDA.sort_values(by=['dateTime']))
-print(YXXDR.sort_values(by=['dateTime']))
+display(YXXDR.sort_values(by=['dateTime']))
 
 # for nodeData in nodeIDs:
 #     try:
