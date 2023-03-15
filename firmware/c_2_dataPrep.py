@@ -38,4 +38,4 @@ for nodeData in nodeIDs:
         print("-----------------------------------------------")
         mP.climateDataPrepV2(nodeData,nodeID,WIMDA,YXXDR)
     except Exception as e:
-        print("[ERROR] Could not publish data, error: {}".format(e))
+        print ("Error and type: %s - %s." % (e,type(e)))
