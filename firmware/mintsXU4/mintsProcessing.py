@@ -63,7 +63,7 @@ dataFolderMQTT          = mD.dataFolderMQTT
 dataFolderMQTTReference = mD.dataFolderMQTTReference
 latestOn       = mD.latestOn
 mqttOn         = mD.mqttOn
-
+mergedPklsFolder     = mD.mergedPklsFolder
 
 def superReaderV2(nodeID,sensorID):
     if sensorID == "BME280":
@@ -131,6 +131,15 @@ def dropIndexDuplicates(dfIn):
 
 
 
+def gpsCropCoordinatesV2(mintsData,latitude,longitude,latRange,longRange):
+ 
+    mintsData = mintsData[mintsData.GPGGALR_Latitude>latitude-abs(latRange)]
+    mintsData = mintsData[mintsData.GPGGALR_Latitude<latitude+abs(latRange)]
+    mintsData = mintsData[mintsData.GPGGALR_Longitude>longitude-abs(longRange)]
+    mintsData = mintsData[mintsData.GPGGALR_Longitude<longitude+abs(longRange)]
+    return mintsData;
+
+
 def gpsCropCoordinates(mintsData,latitude,longitude,latRange,longRange):
  
     mintsData = mintsData[mintsData.GPGGALR_Latitude>latitude-abs(latRange)]
@@ -192,7 +201,7 @@ def sensorReaderV2(nodeID,sensorID,floatSum1,floatSum2):
                 dataNow['dateTime'] = pd.to_datetime(dataNow['dateTime'])
 
                 dataNow  = dataNow[sensorDefinitions(sensorID)]
-                dataNow =dataNow.set_index('dateTime').resample(timeSpan).mean()
+                dataNow  = dataNow.set_index('dateTime').resample(timeSpan).mean()
                 dataIn.append(dataNow)            
         
             if(floatSum2 == floatSumNow):
@@ -200,7 +209,7 @@ def sensorReaderV2(nodeID,sensorID,floatSum1,floatSum2):
                 dataNow['dateTime'] = pd.to_datetime(dataNow['dateTime'])
 
                 dataNow  = dataNow[sensorDefinitions(sensorID)]
-                dataNow =dataNow.set_index('dateTime').resample(timeSpan).mean()
+                dataNow  = dataNow.set_index('dateTime').resample(timeSpan).mean()
                 dataIn.append(dataNow)             
 
         except Exception as e:
@@ -292,48 +301,39 @@ def oobClimateCheck(mintsData,nodeID,climateSensor,dateNow,modelsPklsFolder,sens
 
 
 
-def getDataSuperReader(nodeID,sensor,beginDate):
+def getDataSuperReader(nodeID,sensorID,beginDate):
+    print("Reading Data for Node : " + nodeID)
+    print("Sensor ID             : " + sensorID)    
+    print("Begin Date            : " + beginDate)    
+    
     startDate         = datetime.datetime.strptime(beginDate, '%Y-%m-%d')
-    mintsData         = superReaderV2(nodeID,sensor)
+    mintsData         = superReaderV2(nodeID,sensorID)
     mintsData         = mintsData[mintsData.index>startDate]
+
     return mintsData
 
 
-def climateDataPrepV2(nodeData,nodeID,climateSensor,WIMDA,YXXDR,mergedPklsFolder):
+def climateDataPrepV2(nodeData,nodeID,WIMDA,YXXDR):
+
     climateData = getDataSuperReader(nodeID,nodeData['climateSensor'],nodeData['climateSensorBegin'])
-    gpsData     = getDataSuperReader(nodeID,nodeData['climateSensor'],nodeData['climateSensorBegin'])
-   
-   
-   
-    # climateStartDate = datetime.datetime.strptime(nodeData['climateSensorBegin'], '%Y-%m-%d')
-    # climateSensor    = nodeData['climateSensor']
-    # climateData      = superReaderV2(nodeID,climateSensor)
-    # mintsData        = mintsData[mintsData.index>dataCropDate]
+    gpsData     = getDataSuperReader(nodeID,nodeData['gpsSensor'],nodeData['gpsSensorBegin'])
+    mintsData   = merger([climateData, WIMDA,YXXDR, gpsData])
 
-
-    gpsStartDate     = datetime.datetime.strptime(nodeData['climateSensorBegin'], '%Y-%m-%d')
-    gpsSensor        = nodeData['climateSensor']
-    gpsData          = superReaderV2(nodeID,climateSensor)
-
-    print("Reading Data for Node: " + nodeID)
-    print("GPS Sensor ID: " + nodeID)
-    
-    GPS             = superReaderV2(nodeID,gpsSensor)
-
-
-    mintsData = merger([climateSensor, WIMDA,YXXDR, GPS])
-    print("GPS Cropping")
-    pd.to_pickle(mintsData,getPathGeneric(mergedPklsFolder,nodeID,"climateData","pkl") )
-    mintsData = gpsCropCoordinates(mintsData,32.992179, -96.757777,0.0015,0.0015)
-    # Remove GPS Data 
-    mintsData = mintsData.drop('GPS_Longitude', 1)
-    mintsData = mintsData.drop('GPS_Latitude', 1)
-    pd.to_pickle(mintsData,getPathGeneric(mergedPklsFolder,nodeID,"climateDataWSTC","pkl") )
-    print("Sensor Cropping")
-    mintsData = mintsData[mintsData.index>dataCropDate]
-    pd.to_pickle(mintsData.dropna(),getPathGeneric(mergedPklsFolder,nodeID,"climateDataWSTCCurrent","pkl") )
     print(mintsData)
-    print("-----------------------------------------------")
+
+    # print("GPS Cropping")
+    # pd.to_pickle(mintsData,getPathGeneric(mergedPklsFolder,nodeID,"climateData","pkl") )
+    # mintsData = gpsCropCoordinates(mintsData,32.992179, -96.757777,0.0015,0.0015)
+    
+    
+    # Remove GPS Data 
+    # mintsData = mintsData.drop('GPS_Longitude', 1)
+    # mintsData = mintsData.drop('GPS_Latitude', 1)
+    # pd.to_pickle(mintsData,getPathGeneric(mergedPklsFolder,nodeID,"climateDataWSTC","pkl") )
+
+    # pd.to_pickle(mintsData.dropna(),getPathGeneric(mergedPklsFolder,nodeID,"climateDataWSTCCurrent","pkl") )
+    # print(mintsData)
+    # print("-----------------------------------------------")
 
 
 def climateDataPrep(nodeData,nodeID,climateSensor,WIMDA,YXXDR,mergedPklsFolder):

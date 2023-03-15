@@ -29,17 +29,13 @@ pd.to_pickle(mP.dropIndexDuplicates(WIMDA) ,mP.getPathGeneric(referencePklsFolde
 WIMDA  = pd.read_pickle(mP.getPathGeneric(referencePklsFolder,airMarID,"WIMDA","pkl"))
 YXXDR  = pd.read_pickle(mP.getPathGeneric(referencePklsFolder,airMarID,"YXXDR","pkl"))
 
-print(WIMDA)
-print(YXXDR)
-
-
-# for nodeData in nodeIDs:
-#     try:
-#         nodeID        = nodeData['nodeID']
-#         climateSensor = nodeData['climateSensor']
-#         print("=====================MINTS=====================")
-#         print("Prepearing Climate data for Node: " + nodeID +" with Climate Sensor: " + climateSensor)
-#         print("-----------------------------------------------")
-#         mP.climateDataPrep(nodeData,nodeID,climateSensor,WIMDA,YXXDR,mergedPklsFolder)
-#     except Exception as e:
-#         print("[ERROR] Could not publish data, error: {}".format(e))
+for nodeData in nodeIDs:
+    try:
+        nodeID        = nodeData['nodeID']
+        climateSensor = nodeData['climateSensor']
+        print("=====================MINTS=====================")
+        print("Prepearing Climate data for Node: " + nodeID +" with Climate Sensor: " + climateSensor)
+        print("-----------------------------------------------")
+        mP.climateDataPrepV2(nodeData,nodeID,WIMDA,YXXDR)
+    except Exception as e:
+        print("[ERROR] Could not publish data, error: {}".format(e))
