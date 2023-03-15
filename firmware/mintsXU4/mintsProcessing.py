@@ -72,6 +72,9 @@ def superReaderV2(nodeID,sensorID):
     elif sensorID == "BME680":
         floatSum  = 4
         floatSum2 = -1         
+    elif sensorID == "BME688CNR":
+        floatSum  = 4
+        floatSum2 = -1         
     elif sensorID == "GPSGPGGA2":
         floatSum  = 9   
         floatSum2 = -1        
