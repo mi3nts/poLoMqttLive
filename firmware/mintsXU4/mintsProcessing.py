@@ -130,8 +130,7 @@ def sensorDefinitions(sensorID):
     if sensorID == "GPGGALR":
         return {'dateTime','Latitude','Longitude'} 
     if sensorID == "GPGGAPL":
-        return {'dateTime','Latitude','Longitude'}   
-
+        return {'dateTime','latitudeCoordinate','longitudeCoordinate'}     
     if sensorID == "YXXDR":
         return {'dateTime','barrometricPressureBars'}                               
     return [];
@@ -322,10 +321,10 @@ def getDataSuperReader(nodeID,sensorID,beginDate):
 
 def climateDataPrepV2(nodeData,nodeID,WIMDA,YXXDR):
 
-    # climateData = getDataSuperReader(nodeID,nodeData['climateSensor'],nodeData['climateSensorBegin'])
+    climateData = getDataSuperReader(nodeID,nodeData['climateSensor'],nodeData['climateSensorBegin'])
     gpsData     = getDataSuperReader(nodeID,nodeData['gpsSensor'],nodeData['gpsSensorBegin'])
-
-    # mintsData   = merger([climateData, WIMDA,YXXDR, gpsData])
+    gpsData.DataFrame.columns = ['dateTime', 'latitude', 'longitude']
+    mintsData   = merger([climateData, WIMDA,YXXDR, gpsData])
 
     # print(mintsData)
 
