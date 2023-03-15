@@ -194,8 +194,9 @@ def sensorReaderV2(nodeID,sensorID,floatSum1,floatSum2):
     for f in dataInPre:
         try:
         
-            dataFrame = pd.read_csv(f, delim_whitespace=True)
-            # print(dataFrame.dtypes)
+            dataFrame = pd.read_csv(f)
+            for col in dataFrame.columns:
+                print("-"+col+"-")
             floatSumNow = sum(dataFrame.dtypes == float64 )
 
             print("Reading " + f+ ": floatSum ==> " + str(floatSumNow)) 
