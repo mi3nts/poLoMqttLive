@@ -45,7 +45,7 @@ print(YXXDR.sort_index())
 
 
 # print(WIMDA.drop_duplicates('first'))
-print(YXXDR.drop_duplicates('first'))
+print(YXXDR.drop_duplicates())
 
 
 
