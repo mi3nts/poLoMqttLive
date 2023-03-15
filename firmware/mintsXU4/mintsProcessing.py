@@ -201,10 +201,13 @@ def sensorReaderV2(nodeID,sensorID,floatSum1,floatSum2):
                 dataNow =dataNow.set_index('dateTime').resample(timeSpan).mean()
                 # print(dataNow)
                 dataIn.append(dataNow)
+            if len(dataIn)>5:
+                pd.concat(list(set(dataIn)).sort())
+
         except Exception as e:
             print("[ERROR] Could not publish data, error: {}".format(e))
 
-    return pd.concat(list(set(dataIn)).sort())
+    return pd.concat(dataIn);
 
 
 
