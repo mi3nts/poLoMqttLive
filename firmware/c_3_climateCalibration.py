@@ -39,10 +39,14 @@ for nodeData in nodeIDs:
     print("-----------------------------------------------")
     try:
         pathIn    = mP.getPathGeneric(mergedPklsFolder,nodeID,"climateDataWSTCCurrent","pkl")
-        print(pathIn)
-        mintsData = pd.read_pickle(mP.getPathGeneric(mergedPklsFolder,nodeID,"climateDataWSTCCurrent","pkl"))
-        mintsData = mP.oobClimateCheck(mintsData,nodeID,climateSensor,dateNow,modelsPklsFolder,sensorDate)
-        mP.climateCalibration(nodeID,dateNow, mintsData,climateTargets,climateSensor,sensorDate)
+        if os.path.isfile(pathIn):
+            mintsData = pd.read_pickle(pathIn)
+            print(mintsData)
+            # mintsData = mP.oobClimateCheck(mintsData,nodeID,climateSensor,dateNow,modelsPklsFolder,sensorDate)
+            # mP.climateCalibration(nodeID,dateNow, mintsData,climateTargets,climateSensor,sensorDate)
+        else:
+            print("No file found @: " +str(pathIn) +" for Node: " + nodeID)
+
     except Exception as e:
         print("[ERROR] Could not publish data, error: {}".format(e))
     
