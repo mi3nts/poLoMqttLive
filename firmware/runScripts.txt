@@ -1,0 +1,2 @@
+#Live Update 
+nohup python3 l_1_loRaLiveUpdate.py >& logs/liveLoRaLiveUpdate2022.log &
