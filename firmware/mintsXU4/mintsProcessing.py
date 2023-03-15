@@ -198,10 +198,11 @@ def sensorReaderV2(nodeID,sensorID,floatSum1,floatSum2):
             # print(dataFrame.dtypes)
             floatSumNow = sum(dataFrame.dtypes == float64 )
 
-            print("Reading " + f+ ": floatSum ==>" + str(floatSumNow)) 
+            print("Reading " + f+ ": floatSum ==> " + str(floatSumNow)) 
 
             if(floatSum1 == floatSumNow):
                 dataNow = pd.read_csv(f)
+                print(dataNow)
                 dataNow['dateTime'] = pd.to_datetime(dataNow['dateTime'])
 
                 dataNow  = dataNow[sensorDefinitions(sensorID)]
