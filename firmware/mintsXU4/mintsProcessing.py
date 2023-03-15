@@ -186,7 +186,6 @@ def sensorReader(nodeID,sensorID,floatSum):
 
                 dataNow  = dataNow[sensorDefinitions(sensorID)]
                 dataNow =dataNow.set_index('dateTime').resample('60S').mean()
-                # print(dataNow)
                 dataIn.append(dataNow)
         except Exception as e:
             print("[ERROR] Could not publish data, error: {}".format(e))
@@ -221,12 +220,6 @@ def sensorReaderV2(nodeID,sensorID,floatSum1,floatSum2):
             print ("Error and type: %s - %s." % (e,type(e)))
 
     return pd.concat(dataIn).dropna().sort_index();
-
-    # return ;
-
-
-
-
 
 def sensorReaderPost(dataIn,sensorID):
     #dataIn.index = pd.to_datetime(dataIn.dateTime)
@@ -313,7 +306,6 @@ def getDataSuperReader(nodeID,sensorID,beginDate):
     
     startDate         = datetime.datetime.strptime(beginDate, '%Y-%m-%d')
     mintsData         = superReaderV2(nodeID,sensorID)
-    print(mintsData)
     mintsData         = mintsData[mintsData.index>startDate]
 
     return mintsData
@@ -323,7 +315,6 @@ def climateDataPrepV2(nodeData,nodeID,WIMDA,YXXDR):
 
     climateData = getDataSuperReader(nodeID,nodeData['climateSensor'],nodeData['climateSensorBegin'])
     gpsData     = getDataSuperReader(nodeID,nodeData['gpsSensor'],nodeData['gpsSensorBegin'])
-    gpsData.DataFrame.columns = ['dateTime', 'latitude', 'longitude']
     mintsData   = merger([climateData, WIMDA,YXXDR, gpsData])
 
     # print(mintsData)
