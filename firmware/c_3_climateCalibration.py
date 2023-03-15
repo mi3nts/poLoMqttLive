@@ -56,5 +56,5 @@ for nodeData in nodeIDs:
             print("No file found @: " +str(pathIn) +" for Node: " + nodeID)
 
     except Exception as e:
-        print("[ERROR] Could not publish data, error: {}".format(e))
+        print ("Error and type: %s - %s." % (e,type(e)))
     
