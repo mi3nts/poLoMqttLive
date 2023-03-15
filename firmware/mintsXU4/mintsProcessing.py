@@ -308,6 +308,7 @@ def getDataSuperReader(nodeID,sensorID,beginDate):
     
     startDate         = datetime.datetime.strptime(beginDate, '%Y-%m-%d')
     mintsData         = superReaderV2(nodeID,sensorID)
+    print(mintsData)
     mintsData         = mintsData[mintsData.index>startDate]
 
     return mintsData
@@ -317,6 +318,7 @@ def climateDataPrepV2(nodeData,nodeID,WIMDA,YXXDR):
 
     climateData = getDataSuperReader(nodeID,nodeData['climateSensor'],nodeData['climateSensorBegin'])
     gpsData     = getDataSuperReader(nodeID,nodeData['gpsSensor'],nodeData['gpsSensorBegin'])
+
     mintsData   = merger([climateData, WIMDA,YXXDR, gpsData])
 
     print(mintsData)
