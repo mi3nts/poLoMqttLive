@@ -121,7 +121,9 @@ def sensorDefinitions(sensorID):
     if sensorID == "BME280":
         return {'dateTime','Temperature','Pressure','Humidity'}
     if sensorID == "BME680":
-        return {'dateTime','temperature','pressure','humidity'}      
+        return {'dateTime','temperature','pressure','humidity'}  
+    if sensorID == "BME688CNR":
+        return {'dateTime','temperature','pressure','hummidity','vocAqi','bvocEq','gasEst','co2Eq'}            
     if sensorID == "GPGGALR":
         return {'dateTime','Latitude','Longitude'} 
     if sensorID == "YXXDR":
@@ -199,26 +201,17 @@ def sensorReaderV2(nodeID,sensorID,floatSum1,floatSum2):
             print("Reading " + f+ ": floatSum ==> " + str(floatSumNow)) 
 
             if(floatSum1 == floatSumNow):
-                dataNow = pd.read_csv(f)
-                dataNow.rename(columns={"dateTime": "dateTime2"}, inplace = True)
-                dataNow['dateTime'] = pd.to_datetime(dataNow['dateTime2'])
-                dataNow.drop(['dateTime2'], axis=1)
-                print(dataNow)
-                dataNow  = dataNow[sensorDefinitions(sensorID)]
-                print(dataNow)
-                dataNow  = dataNow.set_index('dateTime').resample(timeSpan).mean()
-                print(dataNow)
+                dataNow['dateTime'] = pd.to_datetime(dataNow['dateTime'])
+                dataNow = dataNow[sensorDefinitions(sensorID)]
+                dataNow = dataNow.set_index('dateTime').resample(timeSpan).mean()
                 dataIn.append(dataNow)            
 
         
             if(floatSum2 == floatSumNow):
-                dataNow = pd.read_csv(f)
-                dataNow.rename(columns={"dateTime": "dateTime2"}, inplace = True)
-                dataNow['dateTime'] = pd.to_datetime(dataNow['dateTime2'])
-                dataNow.drop(['dateTime2'], axis=1)
-                dataNow  = dataNow[sensorDefinitions(sensorID)]
-                dataNow  = dataNow.set_index('dateTime').resample(timeSpan).mean()
-                dataIn.append(dataNow)            
+                dataNow['dateTime'] = pd.to_datetime(dataNow['dateTime'])
+                dataNow = dataNow[sensorDefinitions(sensorID)]
+                dataNow = dataNow.set_index('dateTime').resample(timeSpan).mean()
+                dataIn.append(dataNow)              
 
         except Exception as e:
             print("[ERROR] Could not publish data, error: {}".format(e))
