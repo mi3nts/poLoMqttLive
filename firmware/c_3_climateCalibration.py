@@ -42,7 +42,9 @@ for nodeData in nodeIDs:
         if os.path.isfile(pathIn):
             mintsData = pd.read_pickle(pathIn)
             print(mintsData)
-            # mintsData = mP.oobClimateCheck(mintsData,nodeID,climateSensor,dateNow,modelsPklsFolder,sensorDate)
+            mintsData = mP.oobClimateCheck(mintsData,nodeID,climateSensor,dateNow,modelsPklsFolder,sensorDate)
+            print(mintsData)
+            
             # mP.climateCalibration(nodeID,dateNow, mintsData,climateTargets,climateSensor,sensorDate)
         else:
             print("No file found @: " +str(pathIn) +" for Node: " + nodeID)
