@@ -293,18 +293,33 @@ def oobClimateCheck(mintsData,nodeID,climateSensor,dateNow,modelsPklsFolder,sens
 
 
 
+def getDataSuperReader(nodeID,sensor,beginDate):
+    startDate         = datetime.datetime.strptime(beginDate, '%Y-%m-%d')
+    mintsData         = superReaderV2(nodeID,sensor)
+    mintsData         = mintsData[mintsData.index>startDate]
+    return mintsData
+
 
 def climateDataPrepV2(nodeData,nodeID,climateSensor,WIMDA,YXXDR,mergedPklsFolder):
-    dataCropDate  = datetime.datetime.strptime(nodeData['climateSensorBegin'], '%Y-%m-%d')
-    climateSensor =  nodeData['climateSensor']
-    gpsSensor     =  nodeData['climateSensor']
+    climateData = getDataSuperReader(nodeID,nodeData['climateSensor'],nodeData['climateSensorBegin'])
+    gpsData     = getDataSuperReader(nodeID,nodeData['climateSensor'],nodeData['climateSensorBegin'])
+   
+   
+   
+    # climateStartDate = datetime.datetime.strptime(nodeData['climateSensorBegin'], '%Y-%m-%d')
+    # climateSensor    = nodeData['climateSensor']
+    # climateData      = superReaderV2(nodeID,climateSensor)
+    # mintsData        = mintsData[mintsData.index>dataCropDate]
+
+
+    gpsStartDate     = datetime.datetime.strptime(nodeData['climateSensorBegin'], '%Y-%m-%d')
+    gpsSensor        = nodeData['climateSensor']
+    gpsData          = superReaderV2(nodeID,climateSensor)
 
     print("Reading Data for Node: " + nodeID)
     print("GPS Sensor ID: " + nodeID)
     
-    GPS             = superReaderV2(nodeID,"GPGGALR")
-    climateSensor   = superReaderV2(nodeID,climateSensor)
-
+    GPS             = superReaderV2(nodeID,gpsSensor)
 
 
     mintsData = merger([climateSensor, WIMDA,YXXDR, GPS])
@@ -312,8 +327,8 @@ def climateDataPrepV2(nodeData,nodeID,climateSensor,WIMDA,YXXDR,mergedPklsFolder
     pd.to_pickle(mintsData,getPathGeneric(mergedPklsFolder,nodeID,"climateData","pkl") )
     mintsData = gpsCropCoordinates(mintsData,32.992179, -96.757777,0.0015,0.0015)
     # Remove GPS Data 
-    mintsData = mintsData.drop('GPGGALR_Longitude', 1)
-    mintsData = mintsData.drop('GPGGALR_Latitude', 1)
+    mintsData = mintsData.drop('GPS_Longitude', 1)
+    mintsData = mintsData.drop('GPS_Latitude', 1)
     pd.to_pickle(mintsData,getPathGeneric(mergedPklsFolder,nodeID,"climateDataWSTC","pkl") )
     print("Sensor Cropping")
     mintsData = mintsData[mintsData.index>dataCropDate]
