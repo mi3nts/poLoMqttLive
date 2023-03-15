@@ -130,7 +130,7 @@ def sensorDefinitions(sensorID):
     if sensorID == "GPGGALR":
         return {'dateTime','Latitude','Longitude'} 
     if sensorID == "GPGGAPL":
-        return {'dateTime','latitudeCoordinate','longitudeCoordinate'}     
+        return {'dateTime','Latitude','Longitude'}   
 
     if sensorID == "YXXDR":
         return {'dateTime','barrometricPressureBars'}                               
