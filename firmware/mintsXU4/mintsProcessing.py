@@ -192,7 +192,7 @@ def sensorReaderV2(nodeID,sensorID,floatSum1,floatSum2):
     dataIn = []
 
     for f in dataInPre:
-        try:
+        # try:
         
             dataFrame = pd.read_csv(f)
             print("Debugging")
@@ -231,8 +231,8 @@ def sensorReaderV2(nodeID,sensorID,floatSum1,floatSum2):
                 dataNow  = dataNow.set_index('dateTime').resample(timeSpan).mean()
                 dataIn.append(dataNow)             
 
-        except Exception as e:
-            print("[ERROR] Could not publish data, error: {}".format(e))
+        # except Exception as e:
+        #     print("[ERROR] Could not publish data, error: {}".format(e))
 
     return pd.concat(dataIn).dropna().sort_index();
 
