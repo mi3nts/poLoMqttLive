@@ -27,6 +27,8 @@ mintsDefinitionsFile     = 'mintsXU4/mintsDefinitions.yaml'
 mqttPort                 = 8883  # Secure port
 # senderNodes            = yaml.load(open(sensorNodesFile))
 mintsDefinitions         = yaml.load(open('mintsXU4/mintsDefinitions.yaml'))
+
+print(mintsDefinitions)
 # utdNodes                 = yaml.load(open('mintsXU4/utdNodes.yaml'))
 loRaNodesFile            = 'loRaNodes.yml'
 mqttBrokerLoRa           = "mqtt.lora.trecis.cloud"
