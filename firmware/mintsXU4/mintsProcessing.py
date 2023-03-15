@@ -329,6 +329,7 @@ def climateDataPrepV2(nodeData,nodeID,WIMDA,YXXDR):
     gpsData     = getDataSuperReader(nodeID,nodeData['gpsSensor'],nodeData['gpsSensorBegin'])
     mintsData   = merger([climateData, WIMDA,YXXDR, gpsData])
 
+    print(len(mintsData.index))
     print("GPS Cropping")
     pd.to_pickle(mintsData,getPathGeneric(mergedPklsFolder,nodeID,"climateData","pkl") )
     
