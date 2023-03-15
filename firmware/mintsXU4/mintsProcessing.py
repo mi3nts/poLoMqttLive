@@ -126,6 +126,9 @@ def sensorDefinitions(sensorID):
     return [];
 
 
+def dropIndexDuplicates(dfIn):
+    return dfIn[~dfIn.index.duplicated(keep='first')];
+
 
 
 def gpsCropCoordinates(mintsData,latitude,longitude,latRange,longRange):
