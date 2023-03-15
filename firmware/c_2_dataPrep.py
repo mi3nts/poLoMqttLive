@@ -32,7 +32,7 @@ print("--------------")
 print(WIMDA.sort_values(by=['dateTime']))
 print(YXXDR.tail())
 
-for row in YXXDR:
+for row in YXXDR.iterrows():
     print(row)
 # for nodeData in nodeIDs:
 #     try:
