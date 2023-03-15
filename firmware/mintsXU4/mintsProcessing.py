@@ -126,7 +126,7 @@ def sensorDefinitions(sensorID):
     if sensorID == "BME680":
         return {'dateTime','temperature','pressure','humidity'}  
     if sensorID == "BME688CNR":
-        return {'dateTime','temperature','pressure','humidity','vocAqi','bvocEq','gasEst','co2Eq'}            
+        return {'dateTime','temperature','pressure','humidity'}            
     if sensorID == "GPGGALR":
         return {'dateTime','Latitude','Longitude'} 
     if sensorID == "GPGGAPL":
@@ -141,21 +141,32 @@ def dropIndexDuplicates(dfIn):
 
 
 
-def gpsCropCoordinatesV2(mintsData,latitude,longitude,latRange,longRange):
- 
-    mintsData = mintsData[mintsData.GPGGALR_Latitude>latitude-abs(latRange)]
-    mintsData = mintsData[mintsData.GPGGALR_Latitude<latitude+abs(latRange)]
-    mintsData = mintsData[mintsData.GPGGALR_Longitude>longitude-abs(longRange)]
-    mintsData = mintsData[mintsData.GPGGALR_Longitude<longitude+abs(longRange)]
-    return mintsData;
-
+def gpsCropCoordinatesV2(mintsData,gpsSensor,latitude,longitude,latRange,longRange):
+    if gpsSensor == "GPGGALR":
+        mintsData = mintsData[mintsData.GPGGALR_Latitude>latitude-abs(latRange)]
+        mintsData = mintsData[mintsData.GPGGALR_Latitude<latitude+abs(latRange)]
+        mintsData = mintsData[mintsData.GPGGALR_Longitude>longitude-abs(longRange)]
+        mintsData = mintsData[mintsData.GPGGALR_Longitude<longitude+abs(longRange)]
+        mintsData.drop('GPGGALR_Latitude', 1)
+        mintsData.drop('GPGGALR_Longitude', 1)        
+        return mintsData;
+    if gpsSensor == "GPGGAPL":
+        mintsData = mintsData[mintsData.GPGGAPL_latitudeCoordinate>latitude-abs(latRange)]
+        mintsData = mintsData[mintsData.GPGGAPL_latitudeCoordinate<latitude+abs(latRange)]
+        mintsData = mintsData[mintsData.GPGGAPL_longitudeCoordinate>longitude-abs(longRange)]
+        mintsData = mintsData[mintsData.GPGGAPL_longitudeCoordinate<longitude+abs(longRange)]        
+        mintsData.drop('GPGGAPL_latitudeCoordinate', 1)
+        mintsData.drop('GPGGAPL_longitudeCoordinate', 1)
+        return mintsData;
+    return;
 
 def gpsCropCoordinates(mintsData,latitude,longitude,latRange,longRange):
- 
     mintsData = mintsData[mintsData.GPGGALR_Latitude>latitude-abs(latRange)]
     mintsData = mintsData[mintsData.GPGGALR_Latitude<latitude+abs(latRange)]
     mintsData = mintsData[mintsData.GPGGALR_Longitude>longitude-abs(longRange)]
     mintsData = mintsData[mintsData.GPGGALR_Longitude<longitude+abs(longRange)]
+    mintsData.drop('GPGGALR_Latitude', 1)
+    mintsData.drop('GPGGALR_Longitude', 1)
     return mintsData;
     
 
@@ -317,21 +328,16 @@ def climateDataPrepV2(nodeData,nodeID,WIMDA,YXXDR):
     gpsData     = getDataSuperReader(nodeID,nodeData['gpsSensor'],nodeData['gpsSensorBegin'])
     mintsData   = merger([climateData, WIMDA,YXXDR, gpsData])
 
+    print("GPS Cropping")
+    pd.to_pickle(mintsData,getPathGeneric(mergedPklsFolder,nodeID,"climateData","pkl") )
+    
+    mintsData = gpsCropCoordinatesV2(mintsData,32.992179, -96.757777,0.0015,0.0015)
+    
+    pd.to_pickle(mintsData,getPathGeneric(mergedPklsFolder,nodeID,"climateDataWSTC","pkl") )
+    pd.to_pickle(mintsData.dropna(),getPathGeneric(mergedPklsFolder,nodeID,"climateDataWSTCCurrent","pkl") )
+    
     print(mintsData)
-
-    # print("GPS Cropping")
-    # pd.to_pickle(mintsData,getPathGeneric(mergedPklsFolder,nodeID,"climateData","pkl") )
-    # mintsData = gpsCropCoordinates(mintsData,32.992179, -96.757777,0.0015,0.0015)
-    
-    
-    # Remove GPS Data 
-    # mintsData = mintsData.drop('GPS_Longitude', 1)
-    # mintsData = mintsData.drop('GPS_Latitude', 1)
-    # pd.to_pickle(mintsData,getPathGeneric(mergedPklsFolder,nodeID,"climateDataWSTC","pkl") )
-
-    # pd.to_pickle(mintsData.dropna(),getPathGeneric(mergedPklsFolder,nodeID,"climateDataWSTCCurrent","pkl") )
-    # print(mintsData)
-    # print("-----------------------------------------------")
+    print("-----------------------------------------------")
 
 
 def climateDataPrep(nodeData,nodeID,climateSensor,WIMDA,YXXDR,mergedPklsFolder):
