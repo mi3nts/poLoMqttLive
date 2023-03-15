@@ -32,7 +32,8 @@ print("--------------")
 print(WIMDA.sort_values(by=['dateTime']))
 print(YXXDR.tail())
 
-
+for row in YXXDR.rows:
+    print(row)
 # for nodeData in nodeIDs:
 #     try:
 #         nodeID        = nodeData['nodeID']
