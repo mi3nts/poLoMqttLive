@@ -189,7 +189,7 @@ def sensorReaderV2(nodeID,sensorID,floatSum1,floatSum2):
                 dataNow['dateTime'] = pd.to_datetime(dataNow['dateTime'])
 
                 dataNow  = dataNow[sensorDefinitions(sensorID)]
-                dataNow =dataNow.set_index('dateTime').resample('30S').mean()
+                dataNow =dataNow.set_index('dateTime').resample(timeSpan).mean()
                 # print(dataNow)
                 dataIn.append(dataNow)            
         
@@ -198,13 +198,13 @@ def sensorReaderV2(nodeID,sensorID,floatSum1,floatSum2):
                 dataNow['dateTime'] = pd.to_datetime(dataNow['dateTime'])
 
                 dataNow  = dataNow[sensorDefinitions(sensorID)]
-                dataNow =dataNow.set_index('dateTime').resample('30S').mean()
+                dataNow =dataNow.set_index('dateTime').resample(timeSpan).mean()
                 # print(dataNow)
                 dataIn.append(dataNow)
         except Exception as e:
             print("[ERROR] Could not publish data, error: {}".format(e))
 
-    return pd.concat([*set(dataIn)].sort())
+    return pd.concat(list(set(dataIn)).sort())
 
 
 
