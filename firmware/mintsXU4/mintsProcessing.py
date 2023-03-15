@@ -203,7 +203,7 @@ def sensorReaderV2(nodeID,sensorID,floatSum1,floatSum2):
             if(floatSum1 == floatSumNow):
                 dataNow = pd.read_csv(f)
                 print(dataNow)
-                # dataNow['dateTime'] = pd.to_datetime(dataNow['dateTime'])
+                dataNow['dateTime'] = pd.to_datetime(dataNow['dateTime'])
 
                 dataNow  = dataNow[sensorDefinitions(sensorID)]
                 dataNow  = dataNow.set_index('dateTime').resample(timeSpan).mean()
