@@ -384,7 +384,7 @@ def climateCalibrationV2(nodeID,dateNow, mintsData,climateTargets,climateSensor,
 
         print("Running calibraion for : " + target )
 
-        inputData  = mintsData[targets[climateSensor + 'inputs']]
+        inputData  = mintsData[targets[climateSensor + 'input2s']]
         
         print(inputData)
         print(len(inputData))
