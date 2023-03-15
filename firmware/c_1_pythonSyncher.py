@@ -5,6 +5,12 @@ import sys
 import yaml
 import os
 
+from mintsXU4 import mintsDefinitions as mD
+
+nodeIDs              = mD.mintsDefinitions['nodeIDs']
+airMarID             = mD.mintsDefinitions['airmarID']
+
+
 print()
 print("MINTS")
 print()
@@ -18,9 +24,9 @@ with open(yamlFile) as file:
     # scalar values to Python the dictionary format
     mintsDefinitions = yaml.load(file, Loader=yaml.FullLoader)
 
-airMarID = mintsDefinitions['airmarID']
+# airMarID = mintsDefinitions['airmarID']
 
-dataFolder = mintsDefinitions['dataFolder']+ "/ref/"
+dataFolder = mD.dataFolder  + "/ref/"
 
 sysStr = 'rsync -avzrtu -e "ssh" ' +  "--include='*.csv' --include='*/' --exclude='*' /home/mints/Downloads/reference/" + airMarID + " " + dataFolder
 print(sysStr)
