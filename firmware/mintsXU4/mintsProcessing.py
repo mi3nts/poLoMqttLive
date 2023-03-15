@@ -206,10 +206,10 @@ def sensorReaderV2(nodeID,sensorID,floatSum1,floatSum2):
         except Exception as e:
             print("[ERROR] Could not publish data, error: {}".format(e))
 
+    dfIn = pd.concat(dataIn)
+    return dropIndexDuplicates(dfIn.dropna().sort_index());
 
-    return pd.concat(dataIn);
-
-    # return dropIndexDuplicates(pd.concat(dataIn).dropna().sort_index());
+    # return ;
 
 
 
