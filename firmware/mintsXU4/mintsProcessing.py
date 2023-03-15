@@ -190,7 +190,6 @@ def sensorReaderV2(nodeID,sensorID,floatSum1,floatSum2):
 
                 dataNow  = dataNow[sensorDefinitions(sensorID)]
                 dataNow =dataNow.set_index('dateTime').resample(timeSpan).mean()
-                print(dataNow)
                 dataIn.append(dataNow)            
         
             if(floatSum2 == floatSumNow):
@@ -199,7 +198,6 @@ def sensorReaderV2(nodeID,sensorID,floatSum1,floatSum2):
 
                 dataNow  = dataNow[sensorDefinitions(sensorID)]
                 dataNow =dataNow.set_index('dateTime').resample(timeSpan).mean()
-
                 dataIn.append(dataNow)             
 
         except Exception as e:
