@@ -278,6 +278,13 @@ def writeCSV3(writePath,sensorDictionary):
 
 def oobClimateCheck(mintsData,nodeID,climateSensor,dateNow,modelsPklsFolder,sensorDate):
     # Get rid of out of bounds data 
+    if climateSensor == "BME688CNR":
+        numAll    = len(mintsData)
+        mintsData = cropLimits(mintsData,"BME688CNR_temperature",-30,50)
+        mintsData = cropLimits(mintsData,"BME688CNR_pressure",950,1050)
+        mintsData = cropLimits(mintsData,"BME688CNR_humidity",0,100)
+        numLeft   = len(mintsData)
+
     if climateSensor == "BME680":
         numAll    = len(mintsData)
         mintsData = cropLimits(mintsData,"BME680_temperature",-30,50)
@@ -287,7 +294,6 @@ def oobClimateCheck(mintsData,nodeID,climateSensor,dateNow,modelsPklsFolder,sens
 
     if climateSensor == "BME280":
         numAll       = len(mintsData)
-        # print(mintsData)
         mintsData    = cropLimits(mintsData,"BME280_Temperature",-30,50)
         mintsData    = cropLimits(mintsData,"BME280_Pressure",950,1050)
         mintsData    = cropLimits(mintsData,"BME280_Humidity",0,100)
@@ -375,6 +381,7 @@ def climateCalibrationV2(nodeID,dateNow, mintsData,climateTargets,climateSensor,
         target = targets['target']
         targetData = mintsData[target]
         print("Running calibraion for : " + target )
+
         if climateSensor == "BME280":
             inputData  = mintsData[targets['BME280inputs']]
         if climateSensor == "BME680":
