@@ -210,6 +210,7 @@ def sensorReaderV2(nodeID,sensorID,floatSum1,floatSum2):
                 dataNow = pd.read_csv(f)
                 print(dataNow)
                 print(dataNow['dateTime'])
+                print(pd.to_datetime(dataNow['dateTime']))
                 print("-------=========--------")
                 dataNow['dateTime'] = pd.to_datetime(dataNow['dateTime'])
 
