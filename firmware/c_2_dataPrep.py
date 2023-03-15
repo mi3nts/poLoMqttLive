@@ -30,7 +30,10 @@ WIMDA  = pd.read_pickle(mP.getPathGeneric(referencePklsFolder,airMarID,"WIMDA","
 YXXDR  = pd.read_pickle(mP.getPathGeneric(referencePklsFolder,airMarID,"YXXDR","pkl"))
 print("--------------")
 print(WIMDA.sort_values(by=['dateTime']))
-display(YXXDR.sort_values(by=['dateTime']))
+
+with YXXDR.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
+    print(YXXDR)
+
 
 # for nodeData in nodeIDs:
 #     try:
