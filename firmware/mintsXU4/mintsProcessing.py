@@ -76,7 +76,7 @@ def superReaderV2(nodeID,sensorID):
         floatSum  = 7
         floatSum2 = -1         
     elif sensorID == "GPGGAPL":
-        floatSum  = 9   
+        floatSum  = 5   
         floatSum2 = -1   
     elif sensorID == "GPSGPGGA2":
         floatSum  = 9   
@@ -129,6 +129,9 @@ def sensorDefinitions(sensorID):
         return {'dateTime','temperature','pressure','humidity','vocAqi','bvocEq','gasEst','co2Eq'}            
     if sensorID == "GPGGALR":
         return {'dateTime','Latitude','Longitude'} 
+    if sensorID == "GPGGAPL":
+        return {'dateTime','latitudeCoordinate','longitudeCoordinate'}     
+
     if sensorID == "YXXDR":
         return {'dateTime','barrometricPressureBars'}                               
     return [];
@@ -193,13 +196,11 @@ def sensorReader(nodeID,sensorID,floatSum):
 def sensorReaderV2(nodeID,sensorID,floatSum1,floatSum2):
     print("Reading " + sensorID + " data from node " + nodeID )
     dataInPre = glob.glob(dataFolder+ "/*/*"+nodeID+"/*/*/*/*"+sensorID+ "*.csv")
-    print(dataInPre)
     dataInPre.sort()
     dataIn = []
 
     for f in dataInPre:
         try:
-        
             dataNow = pd.read_csv(f)
             floatSumNow = sum(dataNow.dtypes == float64 )
             print("Reading " + f+ ": floatSum ==> " + str(floatSumNow)) 
