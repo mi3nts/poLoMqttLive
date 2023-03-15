@@ -33,16 +33,22 @@ for nodeData in nodeIDs:
     print("=====================MINTS=====================")
     nodeID              = nodeData['nodeID']
     climateSensor       = nodeData['climateSensor']
-    sensorDate          = nodeData['climateSensorBegin']
+    climateBegin        = nodeData['climateSensorBegin']
+    gpsSensor           = nodeData['gpsSensor']
+    gpsBegin            = nodeData['gpsSensorBegin']
+    pmSensor            = nodeData['pmSensor']
+    pmBegin             = nodeData['pmSensorBegin']
+   
+    
     print("Climate data Calibration for Node: " + nodeID +" with Climate Sensor: " + climateSensor)
-    print("running from: " + sensorDate)
+    print("running from: " + climateBegin)
     print("-----------------------------------------------")
     try:
         pathIn    = mP.getPathGeneric(mergedPklsFolder,nodeID,"climateDataWSTCCurrent","pkl")
         if os.path.isfile(pathIn):
             mintsData = pd.read_pickle(pathIn)
             print(mintsData)
-            mintsData = mP.oobClimateCheck(mintsData,nodeID,climateSensor,dateNow,modelsPklsFolder,sensorDate)
+            mintsData = mP.oobClimateCheck(mintsData,nodeID,climateSensor,dateNow,modelsPklsFolder,climateBegin)
             print(mintsData)
             
             # mP.climateCalibration(nodeID,dateNow, mintsData,climateTargets,climateSensor,sensorDate)
