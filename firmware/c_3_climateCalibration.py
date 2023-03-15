@@ -51,7 +51,7 @@ for nodeData in nodeIDs:
             mintsData = mP.oobClimateCheck(mintsData,nodeID,climateSensor,dateNow,modelsPklsFolder,climateBegin)
             print(mintsData)
             
-            # mP.climateCalibration(nodeID,dateNow, mintsData,climateTargets,climateSensor,sensorDate)
+            mP.climateCalibrationV2(nodeID,dateNow, mintsData,climateTargets,climateSensor,climateBegin)
         else:
             print("No file found @: " +str(pathIn) +" for Node: " + nodeID)
 
