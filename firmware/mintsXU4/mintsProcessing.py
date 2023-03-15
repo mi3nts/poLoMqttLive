@@ -212,6 +212,7 @@ def sensorReaderV2(nodeID,sensorID,floatSum1,floatSum2):
                 print(dataNow['dateTime'])
                 print(pd.to_datetime(dataNow['dateTime']))
                 dataNow['Test'] = pd.to_datetime(dataNow['dateTime'])
+                print(dataNow)
                 print("-------=========--------")
          
                 dataNow['dateTime'] = pd.to_datetime(dataNow['dateTime'])
