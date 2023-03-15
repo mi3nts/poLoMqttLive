@@ -204,9 +204,7 @@ def sensorReaderV2(nodeID,sensorID,floatSum1,floatSum2):
         except Exception as e:
             print("[ERROR] Could not publish data, error: {}".format(e))
 
-    dataIn.drop_duplicates().sort_values(by=['dateTime'])
-
-    return pd.concat(dataIn)
+    return pd.concat([*set(dataIn)].sort())
 
 
 
