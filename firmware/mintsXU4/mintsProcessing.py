@@ -201,28 +201,21 @@ def sensorReaderV2(nodeID,sensorID,floatSum1,floatSum2):
             if(floatSum1 == floatSumNow):
                 dataNow = pd.read_csv(f)
                 dataNow.rename(columns={"dateTime": "dateTime2"}, inplace = True)
-                print(dataNow)
                 dataNow['dateTime'] = pd.to_datetime(dataNow['dateTime2'])
-                print(dataNow)
-                # dataNow['dateTime2'] = pd.to_datetime(dataNow['dateTime'])
-                # dataNow['dateTime2'] = pd.to_datetime(dataNow['dateTime'])
-                
-
-                print("-------=========--------")
-         
-                dataNow['dateTime'] = pd.to_datetime(dataNow['dateTime'])
-
+                dataNow.drop(['dateTime2'], axis=1)
                 dataNow  = dataNow[sensorDefinitions(sensorID)]
                 dataNow  = dataNow.set_index('dateTime').resample(timeSpan).mean()
                 dataIn.append(dataNow)            
+
         
             if(floatSum2 == floatSumNow):
                 dataNow = pd.read_csv(f)
-                dataNow['dateTime'] = pd.to_datetime(dataNow['dateTime'])
-
+                dataNow.rename(columns={"dateTime": "dateTime2"}, inplace = True)
+                dataNow['dateTime'] = pd.to_datetime(dataNow['dateTime2'])
+                dataNow.drop(['dateTime2'], axis=1)
                 dataNow  = dataNow[sensorDefinitions(sensorID)]
                 dataNow  = dataNow.set_index('dateTime').resample(timeSpan).mean()
-                dataIn.append(dataNow)             
+                dataIn.append(dataNow)            
 
         except Exception as e:
             print("[ERROR] Could not publish data, error: {}".format(e))
