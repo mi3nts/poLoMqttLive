@@ -123,7 +123,7 @@ def sensorDefinitions(sensorID):
     if sensorID == "BME680":
         return {'dateTime','temperature','pressure','humidity'}  
     if sensorID == "BME688CNR":
-        return {'dateTime','temperature','pressure','hummidity','vocAqi','bvocEq','gasEst','co2Eq'}            
+        return {'dateTime','temperature','pressure','humidity','vocAqi','bvocEq','gasEst','co2Eq'}            
     if sensorID == "GPGGALR":
         return {'dateTime','Latitude','Longitude'} 
     if sensorID == "YXXDR":
