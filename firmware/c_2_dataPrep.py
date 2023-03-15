@@ -33,6 +33,22 @@ print(WIMDA.dropna().sort_index())
 print(YXXDR.dropna().sort_index())
 
 
+
+print(WIMDA.dropna())
+print(YXXDR.dropna())
+
+
+
+
+print(WIMDA.sort_index())
+print(YXXDR.sort_index())
+
+
+print(WIMDA.drop_duplicates('first'))
+print(YXXDR.drop_duplicates('first'))
+
+
+
 # # print("--------------")
 # for nodeData in nodeIDs:
 #     try:
