@@ -178,11 +178,11 @@ def sensorReaderV2(nodeID,sensorID,floatSum1,floatSum2):
 
     for f in dataInPre:
         try:
-            print("Reading " + f)
+        
             dataFrame = pd.read_csv(f)
             #print(dataFrame.dtypes)
             floatSumNow = sum(dataFrame.dtypes == float64 )
-            print(floatSumNow)  
+            print("Reading " + f+ ": floatSum ==>" + str(floatSumNow)) 
 
             if(floatSum1 == floatSumNow):
                 dataNow = pd.read_csv(f)
@@ -203,6 +203,9 @@ def sensorReaderV2(nodeID,sensorID,floatSum1,floatSum2):
                 dataIn.append(dataNow)
         except Exception as e:
             print("[ERROR] Could not publish data, error: {}".format(e))
+
+    dataIn.drop_duplicates().sort_values(by=['dateTime'])
+
     return pd.concat(dataIn)
 
 
