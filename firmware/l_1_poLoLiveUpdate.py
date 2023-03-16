@@ -53,7 +53,7 @@ def isEven(numberIn):
 
 
 
-def getStateV2(self,timeIn):
+def getStateV2(timeIn):
     # print("GET STATE")
     print("Current State")
     stateOut = int(timeIn + liveSpanSec/2)/liveSpanSec;
