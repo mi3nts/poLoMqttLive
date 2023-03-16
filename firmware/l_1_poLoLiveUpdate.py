@@ -18,17 +18,19 @@ from mintsXU4 import mintsLiveNodes as mLN
 mqttPort            = mD.mqttPortLoRa
 mqttBroker          = mD.mqttBrokerLoRa
 mqttCredentialsFile = mD.mqttLoRaCredentialsFile
-fileIn              = mD.mintsDefinitionsFile
-fileInLoRa          = mD.loRaNodesFile
-tlsCert             = mD.tlsCert
-
-# credentials     = yaml.load(open(mqttCredentialsFile),Loader=yaml.FullLoader)
-transmitDetail      = yaml.load(open(fileIn),Loader=yaml.FullLoader)
-transmitDetailLoRa  = yaml.load(open(fileInLoRa),Loader=yaml.FullLoader)
-
+mintsDefinitions    = mD.mintsDefinitions
+loRaPorts           = mD.loRaPorts
 
 tlsCert             = mD.tlsCert
-portIDs             = transmitDetailLoRa['portIDs']
+
+# # credentials     = yaml.load(open(mqttCredentialsFile),Loader=yaml.FullLoader)
+# transmitDetail      = yaml.load(open(fileIn),Loader=yaml.FullLoader)
+# transmitDetailLoRa  = yaml.load(open(fileInLoRa),Loader=yaml.FullLoader)
+
+
+tlsCert             = mD.tlsCert
+
+portIDs             = loRaPorts['portIDs']
 
 credentials  = yaml.load(open(mqttCredentialsFile),Loader=yaml.FullLoader)
 connected    = False  # Stores the connection status
@@ -36,10 +38,13 @@ broker       = mqttBroker
 port         = mqttPort  # Secure port
 mqttUN       = credentials['mqtt']['username'] 
 mqttPW       = credentials['mqtt']['password'] 
+
 currentState = 0
-transmitters = transmitDetail['nodeIDs']
-sensors      = transmitDetail['sensors']
-liveSpanSec  = transmitDetail['liveSpanSec']
+
+
+nodeIDs      = mintsDefinitions['nodeIDs']
+sensors      = mintsDefinitions['sensors']
+liveSpanSec  = mintsDefinitions['liveSpanSec']
 
 initMessege  = True
 decoder = json.JSONDecoder(object_pairs_hook=collections.OrderedDict)
@@ -62,11 +67,21 @@ def getStateV2(self,timeIn):
     print(stateOut)
     return stateOut;
 
-# def nodeIDMapper(nodeID):
+def getNodeIndexV2(nodeID):
+# Need to be capable of detecting a valid pck file
+    indexOut = 0
+    for nodeIDsIn in nodeIDs:
+        if (nodeID == nodeIDsIn['nodeID']):
+            return indexOut; 
+        indexOut = indexOut +1
+    return -1;
+
+
+
 def getNodeIndex(nodeID):
     indexOut = 0
-    for transmitter in transmitters:
-        if (nodeID == transmitter['nodeID']):
+    for nodeIDsIn in nodeIDs:
+        if (nodeID == nodeIDsIn['nodeID']):
             return indexOut; 
         indexOut = indexOut +1
     return -1;
@@ -77,9 +92,9 @@ def on_connect(client, userdata, flags, rc):
     topic = "utd/lora/app/2/device/+/event/up"
     client.subscribe(topic)
     print("Subscrbing to Topic: "+ topic)
-    for transmitter in transmitters:
-        nodeID = transmitter['nodeID']
-        print("Appending  Node")
+    for nodeIDsIn in nodeIDs:
+        nodeID = nodeIDsIn['nodeID']
+        print("Appending  Node: " + nodeID)
         nodeObjects.append(mLN.node(nodeID))
     
     

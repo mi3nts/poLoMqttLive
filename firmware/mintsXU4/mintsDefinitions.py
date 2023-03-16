@@ -12,27 +12,23 @@ tlsCert                   = "/etc/ssl/certs/ca-certificates.crt"     # The path 
 latestOn                  = False
 
 # For MQTT 
-mqttOn                    = True
+mqttOn                   = True
 mqttCredentialsFile      = 'mintsXU4/credentials.yml'
-mqttLoRaCredentialsFile   = 'mintsXU4/loRacredentials.yml'
-sensorNodesFile          = 'sensorNodes.yml'
-droneFile                = 'drone.yml'
-centralNodesFile         = 'centralNodes.yml'
-otterFile                = 'otter.yml'
-carRoofFile              = 'carRoof.yml'
-utdNodesFile             = 'mintsXU4/currentNodes.yml'
-mockNodesFile            = 'sensorNodesMock.yml'
+mqttLoRaCredentialsFile  = 'mintsXU4/loRacredentials.yml'
+loRaPortsFile            = 'mintsXU4/loRaPorts.yml'
+
+
 mqttBroker               = "mqtt.circ.utdallas.edu"
 mintsDefinitionsFile     = 'mintsXU4/mintsDefinitions.yaml'
+
 mqttPort                 = 8883  # Secure port
 # senderNodes            = yaml.load(open(sensorNodesFile))
-mintsDefinitions         = yaml.load(open('mintsXU4/mintsDefinitions.yaml'))
+mintsDefinitions         = yaml.load(open(mintsDefinitionsFile))
+loRaPorts                = yaml.load(open(loRaPortsFile))
 
-# utdNodes                 = yaml.load(open('mintsXU4/utdNodes.yaml'))
-loRaNodesFile            = 'loRaNodes.yml'
 mqttBrokerLoRa           = "mqtt.lora.trecis.cloud"
 mqttPortLoRa             = 1883  # Secure port
-tlsCert                   = mintsDefinitions['tlsCert']
+tlsCert                  = mintsDefinitions['tlsCert']
 
 
 def findMacAddress():
