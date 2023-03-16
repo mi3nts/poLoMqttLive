@@ -54,9 +54,8 @@ def isEven(numberIn):
 
 
 def getStateV2(timeIn):
-    # print("GET STATE")
-    print("Current State")
     stateOut = int((timeIn + liveSpanSec/2)/liveSpanSec);
+    print("Current State")
     print(stateOut)
     return stateOut;
 
@@ -120,22 +119,22 @@ def on_message(client, userdata, msg):
 
         if currentState != liveState:
             currentState = liveState
-            
             print("State Changed")
             # for nodeObject in nodeObjects:
             #     nodeObject.changeState()
 
 
                 
-        # nodeIndex = getNodeIndex(nodeID)
-        # if nodeIndex > 0 :  
-        #     dateTime = datetime.datetime.strptime(sensorDictionary["dateTime"], '%Y-%m-%d %H:%M:%S.%f')
-        #     if sensorID == transmitters[nodeIndex]['pmSensor']:
-        #         nodeObjects[nodeIndex].nodeReaderPM(sensorDictionary)
-        #     if sensorID == transmitters[nodeIndex]['climateSensor']:
-        #         nodeObjects[nodeIndex].nodeReaderClimate(sensorDictionary)
-        #     if sensorID == "GPGGALR":
-        #         nodeObjects[nodeIndex].nodeReaderGPS(sensorDictionary)
+        nodeIndex = getNodeIndex(nodeID)
+        if nodeIndex > 0 :  
+            dateTime = datetime.datetime.strptime(sensorDictionary["dateTime"], '%Y-%m-%d %H:%M:%S.%f')
+            print(dateTime)
+            # if sensorID == transmitters[nodeIndex]['pmSensor']:
+            #     nodeObjects[nodeIndex].nodeReaderPM(sensorDictionary)
+            # if sensorID == transmitters[nodeIndex]['climateSensor']:
+            #     nodeObjects[nodeIndex].nodeReaderClimate(sensorDictionary)
+            # if sensorID == "GPGGALR":
+            #     nodeObjects[nodeIndex].nodeReaderGPS(sensorDictionary)
 
                 
 

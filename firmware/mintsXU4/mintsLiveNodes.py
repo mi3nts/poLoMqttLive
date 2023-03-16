@@ -41,15 +41,18 @@ class node:
         graphUpdateSpeedMs = 200
         lastRecords = 10
         
-        self.evenState      = True
-        self.initRunPM      = True
-        self.initRunClimate = True
-        self.initRunGPS     = True
+        self.evenState       = True
+        self.initRunPM       = True
+        self.initRunClimate  = True
+        self.initRunGPS      = True
+        self.climateMdlAvail = False
+
         self.climateSensor, self.pmSensor                 = mN.getSensors(nodeID)
         self.latitudeHC,self.longitudeHC, self.altitudeHC = mN.getGPS(nodeID)
         self.mdlDict = {}
 
         # Load All Climate Models 
+        climateMdlSum = 0
 
         readPath           = mP.getPathGenericParent(modelsPklsFolder,"climateCalibStats","csv");
         climateCalibStats  = pd.read_csv(readPath)
@@ -66,10 +69,15 @@ class node:
                 self.mdlDict[target + "_MDL" ] = nan
             else:
                 print("Reading Climate Models for : " + target )
+                climateMdlSum = climateMdlSum + 1
+                self.climateMdlAvail = True
                 mxInd = nodeIDStatsTarget['r2Test'].idxmax()
                 dateNow = nodeIDStatsTarget[nodeIDStatsTarget.index == mxInd ]['dateNow'].item()
                 self.mdlDict[target + "_str" ] = target + "_" + dateNow
                 self.mdlDict[target + "_MDL" ] = pd.read_pickle(mP.getPathGeneric(modelsPklsFolder,nodeID,target+"_MDL_"+dateNow,"pkl"))
+        
+        self.climateMdlAvail = climateMdlSum==len(climateTargets)
+        print("climate model availabilty:" + str(self.climateMdlAvail))
         # print(self.mdlDict)
 
 
@@ -194,7 +202,7 @@ class node:
         # for example minutes are odd and seconds are more than 30 or 
         # minutes are even seconds are less  or equal to 30 
         print("Current State")
-        stateOut = int(timeIn + liveSpanSec/2)/liveSpanSec;
+        stateOut = int((timeIn + liveSpanSec/2)/liveSpanSec);
         print(stateOut)
         return stateOut;
 
@@ -288,7 +296,7 @@ class node:
             print("Is Valid")
             self.getAverageAll()
             self.getTime()
-            self.doCSV()
+            # self.doCSV()
         # self.evenState = not(self.evenState)
         self.clearAll()        
 
