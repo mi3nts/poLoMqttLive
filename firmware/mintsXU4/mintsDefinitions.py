@@ -22,12 +22,13 @@ mqttBroker               = "mqtt.circ.utdallas.edu"
 mintsDefinitionsFile     = 'mintsXU4/mintsDefinitions.yaml'
 
 mqttPort                 = 8883  # Secure port
-# senderNodes            = yaml.load(open(sensorNodesFile))
+
 mintsDefinitions         = yaml.load(open(mintsDefinitionsFile))
 loRaPorts                = yaml.load(open(loRaPortsFile))
 
 mqttBrokerLoRa           = "mqtt.lora.trecis.cloud"
 mqttPortLoRa             = 1883  # Secure port
+
 tlsCert                  = mintsDefinitions['tlsCert']
 
 
