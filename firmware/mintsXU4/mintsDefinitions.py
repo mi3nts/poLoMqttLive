@@ -13,8 +13,8 @@ latestOn                  = False
 
 # For MQTT 
 mqttOn                   = True
-mqttCredentialsFile      = 'mintsXU4/credentials.yaml'
-mqttLoRaCredentialsFile  = 'mintsXU4/loRacredentials.yaml'
+mqttCredentialsFile      = 'mintsXU4/credentials.yml'
+mqttLoRaCredentialsFile  = 'mintsXU4/loRacredentials.yml'
 portIDsFile              = 'mintsXU4/portIDs.yml'
 
 
