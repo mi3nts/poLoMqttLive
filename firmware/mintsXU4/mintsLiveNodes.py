@@ -25,37 +25,32 @@ import sys
 nodeIDs              = mD.mintsDefinitions['nodeIDs']
 airMarID             = mD.mintsDefinitions['airmarID']
 climateTargets       = mD.mintsDefinitions['climateTargets']
+liveSpanSec          = mD.mintsDefinitions['liveSpanSec']
+
 rawPklsFolder        = mD.rawPklsFolder
 referencePklsFolder  = mD.referencePklsFolder
 mergedPklsFolder     = mD.mergedPklsFolder
 modelsPklsFolder     = mD.modelsPklsFolder
 liveFolder           = mD.liveFolder
 
-# class TimeAxisItem(pg.AxisItem):
-#     def tickStrings(self, values, scale, spacing):
-#         return [datetime.fromtimestamp(value) for value in values]
-
 class node:
     def __init__(self,nodeID):
         self.nodeID = nodeID
         print("============MINTS============")
-        print("NODEID: " +nodeID)
+        print("NODEID: " + nodeID)
         graphUpdateSpeedMs = 200
         lastRecords = 10
-        # self.win                 = pg.GraphicsWindow( title="MINTS Ground Vehicle")
-        # self.app                 = QtGui.QApplication([])
-        # self.lookBack            = timedelta(minutes=5)         
-        ## IPS7100
         
-        self.evenState   = True
-        self.initRunPM = True
+        self.evenState      = True
+        self.initRunPM      = True
         self.initRunClimate = True
-        self.initRunGPS = True
+        self.initRunGPS     = True
         self.climateSensor, self.pmSensor                 = mN.getSensors(nodeID)
         self.latitudeHC,self.longitudeHC, self.altitudeHC = mN.getGPS(nodeID)
         self.mdlDict = {}
 
         # Load All Climate Models 
+
         readPath           = mP.getPathGenericParent(modelsPklsFolder,"climateCalibStats","csv");
         climateCalibStats  = pd.read_csv(readPath)
         nodeIDStats        = climateCalibStats[climateCalibStats['nodeID'] == self.nodeID ]
@@ -192,6 +187,17 @@ class node:
         #     self.changeState()
         self.currentUpdateGPS()
         return;
+
+    def getStateV2(self,timeIn):
+        # print("GET STATE")
+        # Zero State means current time is on an even minute
+        # for example minutes are odd and seconds are more than 30 or 
+        # minutes are even seconds are less  or equal to 30 
+        print("Current State")
+        stateOut = int(timeIn + liveSpanSec/2)/liveSpanSec;
+        print(stateOut)
+        return stateOut;
+
 
     def getState(self,timeIn):
         # print("GET STATE")

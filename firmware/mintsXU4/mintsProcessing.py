@@ -414,9 +414,8 @@ def climateCalibrationV2(nodeID,dateNow, mintsData,climateTargets,climateSensor,
                 ("dateNow"           ,dateNow)
                ])
    
-        print(statsDictionary)
+        # print(statsDictionary)
         pd.to_pickle(regressor ,getPathGeneric(modelsPklsFolder,nodeID,target+"_MDL_"+dateNow,"pkl")  )
-
         writePath = getPathGenericParent(modelsPklsFolder,"climateCalibStats","csv")       
         writeCSV3(writePath,statsDictionary)
   

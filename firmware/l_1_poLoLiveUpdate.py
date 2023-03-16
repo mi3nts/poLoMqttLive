@@ -6,7 +6,7 @@ import datetime
 import yaml
 import collections
 import json
-
+import time
 from mintsXU4 import mintsSensorReader as mSR
 from mintsXU4 import mintsDefinitions as mD
 from mintsXU4 import mintsLatest as mL
@@ -36,9 +36,11 @@ broker       = mqttBroker
 port         = mqttPort  # Secure port
 mqttUN       = credentials['mqtt']['username'] 
 mqttPW       = credentials['mqtt']['password'] 
-currentState    = True
+currentState = 0
 transmitters = transmitDetail['nodeIDs']
 sensors      = transmitDetail['sensors']
+liveSpanSec  = transmitDetail['liveSpanSec']
+
 initMessege  = True
 decoder = json.JSONDecoder(object_pairs_hook=collections.OrderedDict)
 nodeObjects  = []
@@ -46,14 +48,19 @@ nodeObjects  = []
 def isEven(numberIn):
     return  numberIn % 2 == 0;
 
-def getState(timeIn):
+
+# This functioin depends on the averaged value which can either be 30 or 60 seconds which is not ideal 
+# How can I have a function that is not dependant averaged times 0
+
+
+
+
+def getStateV2(self,timeIn):
     # print("GET STATE")
-    # Zero State means current time is on an even minute
-    # for example minutes are odd and seconds are more than 30 or 
-    # minutes are even seconds are less  or equal to 30 
-    currentState = (not(isEven(timeIn.minute)) and timeIn.second > 30) or (isEven(timeIn.minute) and timeIn.second <= 30)
-    print("Current Time State: " + str(currentState))
-    return currentState;
+    print("Current State")
+    stateOut = int(timeIn + liveSpanSec/2)/liveSpanSec;
+    print(stateOut)
+    return stateOut;
 
 # def nodeIDMapper(nodeID):
 def getNodeIndex(nodeID):
@@ -93,26 +100,30 @@ def on_message(client, userdata, msg):
         print("Base 16 Data    : " + base16Data)
         sensorDictionary = mLR.sensorReceiveLoRa(dateTime,nodeID,sensorID,framePort,base16Data)
         
-        dateTimeNow   = datetime.datetime.strptime(sensorDictionary["dateTime"], '%Y-%m-%d %H:%M:%S.%f')
-        
- 
-        if currentState != getState(dateTimeNow):
-            currentState = getState(dateTimeNow)
+        # dateTimeNow   = datetime.datetime.strptime(sensorDictionary["dateTime"], '%Y-%m-%d %H:%M:%S.%f')
+        currentTimeInSec = time.time()
+
+        # The current state is determined by the number of seconds elapsed since 1970 
+        liveState        = getStateV2(currentTimeInSec)
+
+
+        if currentState != liveState:
+            currentState = liveState
             print("State Changed")
-            for nodeObject in nodeObjects:
-                nodeObject.changeState()
+            # for nodeObject in nodeObjects:
+            #     nodeObject.changeState()
 
 
                 
-        nodeIndex = getNodeIndex(nodeID)
-        if nodeIndex > 0 :  
-            dateTime = datetime.datetime.strptime(sensorDictionary["dateTime"], '%Y-%m-%d %H:%M:%S.%f')
-            if sensorID == transmitters[nodeIndex]['pmSensor']:
-                nodeObjects[nodeIndex].nodeReaderPM(sensorDictionary)
-            if sensorID == transmitters[nodeIndex]['climateSensor']:
-                nodeObjects[nodeIndex].nodeReaderClimate(sensorDictionary)
-            if sensorID == "GPGGALR":
-                nodeObjects[nodeIndex].nodeReaderGPS(sensorDictionary)
+        # nodeIndex = getNodeIndex(nodeID)
+        # if nodeIndex > 0 :  
+        #     dateTime = datetime.datetime.strptime(sensorDictionary["dateTime"], '%Y-%m-%d %H:%M:%S.%f')
+        #     if sensorID == transmitters[nodeIndex]['pmSensor']:
+        #         nodeObjects[nodeIndex].nodeReaderPM(sensorDictionary)
+        #     if sensorID == transmitters[nodeIndex]['climateSensor']:
+        #         nodeObjects[nodeIndex].nodeReaderClimate(sensorDictionary)
+        #     if sensorID == "GPGGALR":
+        #         nodeObjects[nodeIndex].nodeReaderGPS(sensorDictionary)
 
                 
 
