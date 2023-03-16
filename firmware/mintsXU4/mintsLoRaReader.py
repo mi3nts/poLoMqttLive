@@ -53,7 +53,7 @@ def sensorReceiveLoRa(dateTime,nodeID,sensorID,framePort,base16Data):
     return sensorDictionary;
 
 def IPS7100CNRLoRaReturn(dateTime,framePort,base16Data):
-    if(framePort == 15 and len(base16Data) ==112) :
+    if(framePort == 17 and len(base16Data) ==112) :
         sensorDictionary =  OrderedDict([
                 ("dateTime" , str(dateTime)), 
         		("pc0_1"  ,struct.unpack('<L',bytes.fromhex(base16Data[0:8]))[0]),
