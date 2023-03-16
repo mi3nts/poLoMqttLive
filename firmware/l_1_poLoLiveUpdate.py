@@ -126,7 +126,9 @@ def on_message(client, userdata, msg):
 
                 
         nodeIndex = getNodeIndex(nodeID)
-        if nodeIndex > 0 :  
+
+        if nodeIndex > 0  and  nodeIDs[nodeIndex]['climateMdlAvail']: 
+            print("Reading data for node:" + nodeID + " with node index " + str(nodeIndex))
             dateTime = datetime.datetime.strptime(sensorDictionary["dateTime"], '%Y-%m-%d %H:%M:%S.%f')
             print(dateTime)
             # if sensorID == transmitters[nodeIndex]['pmSensor']:
