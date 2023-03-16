@@ -90,7 +90,7 @@ def BME688CNRLoRaReturn(dateTime,framePort,base16Data):
     return sensorDictionary;
 
 def GPGGAPLLoRaReturn(dateTime,framePort,base16Data):
-    if(framePort == 106 and len(base16Data) ==66:
+    if(framePort == 106 and len(base16Data) ==66):
         sensorDictionary =  OrderedDict([
                 ("dateTime"            ,str(dateTime)),
                 ("hour"                ,struct.unpack('<B',bytes.fromhex(base16Data[0:2]))[0]),
