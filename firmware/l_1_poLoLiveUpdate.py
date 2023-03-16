@@ -109,7 +109,8 @@ def on_message(client, userdata, msg):
 
         # This function does not write any CSVs - It only returns the sensor dictionary
         sensorDictionary = mLR.sensorReceiveLoRa(dateTime,nodeID,sensorID,framePort,base16Data)
-        
+        print(sensorDictionary)
+
         dateTimeNow   = datetime.datetime.strptime(sensorDictionary["dateTime"], '%Y-%m-%d %H:%M:%S.%f')
 
 
@@ -128,14 +129,13 @@ def on_message(client, userdata, msg):
         nodeIndex = getNodeIndex(nodeID)
 
         if nodeIndex > 0  and nodeObjects[nodeIndex].climateMdlAvail:
-            print("Reading data for node:" + nodeID + " with node index " + str(nodeIndex))
-            dateTime = datetime.datetime.strptime(sensorDictionary["dateTime"], '%Y-%m-%d %H:%M:%S.%f')
-            print(dateTime)
-            # if sensorID == transmitters[nodeIndex]['pmSensor']:
+            print("Reading data for Node ID:" + nodeID + " with Node Index " + str(nodeIndex))
+
+            # if sensorID == nodeIDs[nodeIndex]['pmSensor']:
             #     nodeObjects[nodeIndex].nodeReaderPM(sensorDictionary)
-            # if sensorID == transmitters[nodeIndex]['climateSensor']:
+            # if sensorID == nodeIDs[nodeIndex]['climateSensor']:
             #     nodeObjects[nodeIndex].nodeReaderClimate(sensorDictionary)
-            # if sensorID == "GPGGALR":
+            # if sensorID == nodeIDs[nodeIndex]['gpsSensor']:
             #     nodeObjects[nodeIndex].nodeReaderGPS(sensorDictionary)
 
                 

@@ -43,25 +43,73 @@ decoder        = json.JSONDecoder(object_pairs_hook=OrderedDict)
 
 def sensorReceiveLoRa(dateTime,nodeID,sensorID,framePort,base16Data):
     sensorDictionary =  OrderedDict([
-                ("dateTime" , str(dateTime))        ])
-
-    if(sensorID=="IPS7100"):
-        sensorDictionary = IPS7100LoRaWrite(dateTime,nodeID,sensorID,framePort,base16Data)
-    if(sensorID=="BME280"):
-        sensorDictionary =BME280LoRaWrite(dateTime,nodeID,sensorID,framePort,base16Data)        
-    # if(sensorID=="SCD30"):
-    #     sensorDictionary =SCD30LoRaWrite(dateTime,nodeID,sensorID,framePort,base16Data) 
-    # if(sensorID=="INA219Duo"):
-    #     sensorDictionary =INA219DuoLoRaWrite(dateTime,nodeID,sensorID,framePort,base16Data) 
-    # if(sensorID=="MGS001"):
-    #     sensorDictionary =MGS001LoRaWrite(dateTime,nodeID,sensorID,framePort,base16Data) 
-    # if(sensorID=="PM"):
-    #     sensorDictionary =PMLoRaWrite(dateTime,nodeID,sensorID,framePort,base16Data) 
-    if(sensorID=="GPGGALR"):
-        sensorDictionary =GPGGALRLoRaWrite(dateTime,nodeID,sensorID,framePort,base16Data) 
+                ("dateTime" , str(dateTime))])
+    if(sensorID=="IPS7100CNR"):
+        sensorDictionary = IPS7100CNRLoRaReturn(dateTime,framePort,base16Data)
+    if(sensorID=="BME688CNR"):
+        sensorDictionary =BME688CNRLoRaReturn(dateTime,framePort,base16Data)        
+    if(sensorID=="GPGGAPL"):
+        sensorDictionary =GPGGAPLLoRaReturn(dateTime,framePort,base16Data) 
     return sensorDictionary;
 
-        
+def IPS7100CNRLoRaReturn(dateTime,framePort,base16Data):
+    if(framePort == 15 and len(base16Data) ==112) :
+        sensorDictionary =  OrderedDict([
+                ("dateTime" , str(dateTime)), 
+        		("pc0_1"  ,struct.unpack('<L',bytes.fromhex(base16Data[0:8]))[0]),
+            	("pc0_3"  ,struct.unpack('<L',bytes.fromhex(base16Data[8:16]))[0]),
+                ("pc0_5"  ,struct.unpack('<L',bytes.fromhex(base16Data[16:24]))[0]),
+                ("pc1_0"  ,struct.unpack('<L',bytes.fromhex(base16Data[24:32]))[0]),
+            	("pc2_5"  ,struct.unpack('<L',bytes.fromhex(base16Data[32:40]))[0]),
+        		("pc5_0"  ,struct.unpack('<L',bytes.fromhex(base16Data[40:48]))[0]), 
+            	("pc10_0" ,struct.unpack('<L',bytes.fromhex(base16Data[48:56]))[0]),
+        		("pm0_1"  ,struct.unpack('<f',bytes.fromhex(base16Data[56:64]))[0]), 
+            	("pm0_3"  ,struct.unpack('<f',bytes.fromhex(base16Data[64:72]))[0]),
+                ("pm0_5"  ,struct.unpack('<f',bytes.fromhex(base16Data[72:80]))[0]),
+                ("pm1_0"  ,struct.unpack('<f',bytes.fromhex(base16Data[80:88]))[0]),
+            	("pm2_5"  ,struct.unpack('<f',bytes.fromhex(base16Data[88:96]))[0]),
+        		("pm5_0"  ,struct.unpack('<f',bytes.fromhex(base16Data[96:104]))[0]), 
+            	("pm10_0" ,struct.unpack('<f',bytes.fromhex(base16Data[104:112]))[0])
+        ])
+    # print(sensorDictionary)        
+    return sensorDictionary;
+
+def BME688CNRLoRaReturn(dateTime,framePort,base16Data):
+    if(framePort == 25 and len(base16Data) ==56):
+        sensorDictionary =  OrderedDict([
+                ("dateTime"    , str(dateTime)), 
+                ("temperature" ,struct.unpack('<f',bytes.fromhex(base16Data[0:8]))[0]),
+                ("humidity"    ,struct.unpack('<f',bytes.fromhex(base16Data[8:16]))[0]),
+                ("pressure"    ,struct.unpack('<f',bytes.fromhex(base16Data[16:24]))[0]),
+                ("vocAqi"      ,struct.unpack('<f',bytes.fromhex(base16Data[24:32]))[0]),
+                ("bvocEq"      ,struct.unpack('<f',bytes.fromhex(base16Data[32:40]))[0]),
+                ("gasEst"      ,struct.unpack('<f',bytes.fromhex(base16Data[40:48]))[0]), 
+                ("co2Eq"       ,struct.unpack('<f',bytes.fromhex(base16Data[48:56]))[0]),
+          ])
+    # print(sensorDictionary)        
+    return sensorDictionary;
+
+def GPGGAPLLoRaReturn(dateTime,framePort,base16Data):
+    if(framePort == 106 and len(base16Data) ==66:
+        sensorDictionary =  OrderedDict([
+                ("dateTime"            ,str(dateTime)),
+                ("hour"                ,struct.unpack('<B',bytes.fromhex(base16Data[0:2]))[0]),
+                ("minute"              ,struct.unpack('<B',bytes.fromhex(base16Data[2:4]))[0]),
+                ("second"              ,struct.unpack('<B',bytes.fromhex(base16Data[4:6]))[0]),
+                ("latitudeCoordinate"  ,struct.unpack('<d',bytes.fromhex(base16Data[6:22]))[0]),
+                ("longitudeCoordinate" ,struct.unpack('<d',bytes.fromhex(base16Data[22:38]))[0]),
+                ("gpsQuality"          ,struct.unpack('<B',bytes.fromhex(base16Data[38:40]))[0]),
+                ("numberOfSatellites"  ,struct.unpack('<B',bytes.fromhex(base16Data[40:42]))[0]),
+                ("HorizontalDilution"  ,struct.unpack('<f',bytes.fromhex(base16Data[42:50]))[0]),
+                ("altitude"            ,struct.unpack('<f',bytes.fromhex(base16Data[50:58]))[0]),
+                ("undulation"          ,struct.unpack('<f',bytes.fromhex(base16Data[58:66]))[0]),
+          ])
+    # print(sensorDictionary)        
+    return sensorDictionary;
+
+
+
+
 def IPS7100LoRaWrite(dateTime,nodeID,sensorID,framePort,base16Data):
     if(framePort == 15 and len(base16Data) ==112) :
         sensorDictionary =  OrderedDict([
@@ -85,17 +133,7 @@ def IPS7100LoRaWrite(dateTime,nodeID,sensorID,framePort,base16Data):
     # loRaWriteFinisher(nodeID,sensorID,dateTime,sensorDictionary)
     return sensorDictionary;
 
-def BME280LoRaWrite(dateTime,nodeID,sensorID,framePort,base16Data):
-    if(framePort == 21 and len(base16Data) ==24):
-        sensorDictionary =  OrderedDict([
-                ("dateTime"    ,str(dateTime)), 
-        		("Temperature" ,struct.unpack('<f',bytes.fromhex(base16Data[0:8]))[0]),
-            	("Pressure"    ,struct.unpack('<f',bytes.fromhex(base16Data[8:16]))[0]),
-                ("Humidity"    ,struct.unpack('<f',bytes.fromhex(base16Data[16:24]))[0]),
-          ])
-    # print(sensorDictionary)        
-    # loRaWriteFinisher(nodeID,sensorID,dateTime,sensorDictionary)
-    return sensorDictionary;
+
 
 def SCD30LoRaWrite(dateTime,nodeID,sensorID,framePort,base16Data):
     if(framePort == 33 and len(base16Data) ==24):
