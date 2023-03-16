@@ -19,18 +19,11 @@ mqttPort            = mD.mqttPortLoRa
 mqttBroker          = mD.mqttBrokerLoRa
 mqttCredentialsFile = mD.mqttLoRaCredentialsFile
 mintsDefinitions    = mD.mintsDefinitions
-loRaPorts           = mD.loRaPorts
+portIDs             = mD.portIDs
 
 tlsCert             = mD.tlsCert
 
-# # credentials     = yaml.load(open(mqttCredentialsFile),Loader=yaml.FullLoader)
-# transmitDetail      = yaml.load(open(fileIn),Loader=yaml.FullLoader)
-# transmitDetailLoRa  = yaml.load(open(fileInLoRa),Loader=yaml.FullLoader)
-
-
-tlsCert             = mD.tlsCert
-
-portIDs             = loRaPorts['portIDs']
+portIDs             = portIDs['portIDs']
 
 credentials  = yaml.load(open(mqttCredentialsFile),Loader=yaml.FullLoader)
 connected    = False  # Stores the connection status

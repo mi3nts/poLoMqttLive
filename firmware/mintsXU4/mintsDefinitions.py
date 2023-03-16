@@ -13,9 +13,9 @@ latestOn                  = False
 
 # For MQTT 
 mqttOn                   = True
-mqttCredentialsFile      = 'mintsXU4/credentials.yml'
-mqttLoRaCredentialsFile  = 'mintsXU4/loRacredentials.yml'
-loRaPortsFile            = 'mintsXU4/loRaPorts.yml'
+mqttCredentialsFile      = 'mintsXU4/credentials.yaml'
+mqttLoRaCredentialsFile  = 'mintsXU4/loRacredentials.yaml'
+portIDsFile              = 'mintsXU4/loRaPorts.yml'
 
 
 mqttBroker               = "mqtt.circ.utdallas.edu"
@@ -24,7 +24,7 @@ mintsDefinitionsFile     = 'mintsXU4/mintsDefinitions.yaml'
 mqttPort                 = 8883  # Secure port
 
 mintsDefinitions         = yaml.load(open(mintsDefinitionsFile))
-loRaPorts                = yaml.load(open(loRaPortsFile))
+portIDs                  = yaml.load(open(portIDsFile))
 
 mqttBrokerLoRa           = "mqtt.lora.trecis.cloud"
 mqttPortLoRa             = 1883  # Secure port
