@@ -14,7 +14,7 @@ latestOn                  = False
 # For MQTT 
 mqttOn                   = True
 mqttCredentialsFile      = 'mintsXU4/credentials.yml'
-mqttLoRaCredentialsFile  = 'mintsXU4/loRacredentials.yml'
+mqttLoRaCredentialsFile  = 'mintsXU4/loRaCredentials.yml'
 portIDsFile              = 'mintsXU4/portIDs.yml'
 
 
