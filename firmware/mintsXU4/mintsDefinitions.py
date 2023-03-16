@@ -15,7 +15,7 @@ latestOn                  = False
 mqttOn                   = True
 mqttCredentialsFile      = 'mintsXU4/credentials.yaml'
 mqttLoRaCredentialsFile  = 'mintsXU4/loRacredentials.yaml'
-portIDsFile              = 'mintsXU4/loRaPorts.yml'
+portIDsFile              = 'mintsXU4/portIDs.yml'
 
 
 mqttBroker               = "mqtt.circ.utdallas.edu"
