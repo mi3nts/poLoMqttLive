@@ -93,6 +93,7 @@ def on_connect(client, userdata, flags, rc):
     
     
 def on_message(client, userdata, msg):
+    currentTimeInSec = time.time()
     global currentState
     try:
         print()
@@ -106,10 +107,12 @@ def on_message(client, userdata, msg):
         print("Date Time       : " + str(dateTime))
         print("Port ID         : " + str(framePort))
         print("Base 16 Data    : " + base16Data)
+
+        # This function does not write any CSVs - It only returns the sensor dictionary
         sensorDictionary = mLR.sensorReceiveLoRa(dateTime,nodeID,sensorID,framePort,base16Data)
         
-        # dateTimeNow   = datetime.datetime.strptime(sensorDictionary["dateTime"], '%Y-%m-%d %H:%M:%S.%f')
-        currentTimeInSec = time.time()
+        dateTimeNow   = datetime.datetime.strptime(dateTime, '%Y-%m-%d %H:%M:%S.%f')
+
 
         # The current state is determined by the number of seconds elapsed since 1970 
         liveState        = getStateV2(currentTimeInSec)
@@ -117,6 +120,7 @@ def on_message(client, userdata, msg):
 
         if currentState != liveState:
             currentState = liveState
+            
             print("State Changed")
             # for nodeObject in nodeObjects:
             #     nodeObject.changeState()
