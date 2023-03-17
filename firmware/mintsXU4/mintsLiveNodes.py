@@ -219,8 +219,7 @@ class node:
                 "-" + str(checkTime.day).zfill(2) + \
                 " " + str(checkTime.hour).zfill(2) + \
                 ":" + str(checkTime.minute).zfill(2) + \
-                ":" + str(checkTime.second).zfill(2) + \
-                    + ".000"
+                ":" + str(checkTime.second).zfill(2) 
         print(self.dateTimeStrCSV)    
         return ;
 
