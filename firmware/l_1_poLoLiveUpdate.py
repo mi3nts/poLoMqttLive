@@ -118,7 +118,7 @@ def on_message(client, userdata, msg):
             currentState = liveState
             print("State Changed")
             for nodeObject in nodeObjects:
-                nodeObject.changeState(currentTimeInSec)
+                nodeObject.changeStateV2()
 
         nodeIndex = getNodeIndex(nodeID)
 
