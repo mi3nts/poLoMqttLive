@@ -1,7 +1,0 @@
-/bin/bash: ./c_0_calibrateClimate.sh: No such file or directory
-/bin/bash: ./c_0_calibrateClimate.sh: No such file or directory
-sending incremental file list
-001e0610c0e4/
-001e0610c0e4/MINTS_001e0610c0e4.csv
-001e0610c0e4/2019/10/23/
-rsync error: received SIGINT, SIGTERM, or SIGHUP (code 20) at rsync.c(638) [sender=3.1.2]
