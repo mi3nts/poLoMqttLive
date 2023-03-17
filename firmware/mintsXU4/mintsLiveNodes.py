@@ -212,7 +212,7 @@ class node:
     #     return  numberIn % 2 == 0;
 
     def getTimeV2(self):
-
+        print("Get time V2")
         checkTime = datetime.utcfromtimestamp(self.getStateV2(self.dateTimePM[-1].timestamp())*liveSpanSec)
         self.dateTimeStrCSV = str(checkTime.year).zfill(4)+ \
                 "-" + str(checkTime.month).zfill(2) + \
@@ -220,8 +220,8 @@ class node:
                 " " + str(checkTime.hour).zfill(2) + \
                 ":" + str(checkTime.minute).zfill(2) + \
                 ":" + str(checkTime.second).zfill(2) + \
-                    + ".000" 
-                
+                    + ".000"
+        print(self.dateTimeStrCSV)    
         return ;
 
     # def getTime(self):
