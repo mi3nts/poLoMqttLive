@@ -118,7 +118,7 @@ def on_message(client, userdata, msg):
         if currentState != liveState:
             currentState = liveState
             print()
-            print(" - - - ==== Status Changed ==== - - - ")
+            print(" - - - ==== - - - ==== Status Changed ==== - - - ==== - - - ")
             for nodeObject in nodeObjects:
                 nodeObject.changeStateV2()
 
