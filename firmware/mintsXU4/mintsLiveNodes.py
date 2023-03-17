@@ -215,6 +215,7 @@ class node:
         print("GET TIME")
         print(self.dateTimePM[-1])
         print(self.dateTimePM[-1].timestamp())
+        print(checkTime)
         checkTime = datetime.utcfromtimestamp(self.getStateV2(self.dateTimePM[-1].timestamp())*liveSpanSec)
         
         self.dateTimeStrCSV = str(checkTime.year).zfill(4)+ \
@@ -225,18 +226,16 @@ class node:
                 ":" + str(checkTime.second).zfill(2)           
         return ;
 
-
-
-    def getTime(self):
-        # print("GET TIME")
-        checkTime  = self.dateTimePM[-1]+ timedelta(seconds=30)
-        self.dateTimeStrCSV = str(checkTime.year).zfill(4)+ \
-                "-" + str(checkTime.month).zfill(2) + \
-                "-" + str(checkTime.day).zfill(2) + \
-                " " + str(checkTime.hour).zfill(2) + \
-                ":" + str(checkTime.minute).zfill(2) + \
-                ":" + "00.000"               
-        return ;
+    # def getTime(self):
+    #     # print("GET TIME")
+    #     checkTime  = self.dateTimePM[-1]+ timedelta(seconds=30)
+    #     self.dateTimeStrCSV = str(checkTime.year).zfill(4)+ \
+    #             "-" + str(checkTime.month).zfill(2) + \
+    #             "-" + str(checkTime.day).zfill(2) + \
+    #             " " + str(checkTime.hour).zfill(2) + \
+    #             ":" + str(checkTime.minute).zfill(2) + \
+    #             ":" + "00.000"               
+    #     return ;
     
     def getValidity(self):
         # print("Getting Validity")     
@@ -254,14 +253,14 @@ class node:
         self.clearAll()      
 
 
-    def changeState(self):
-        if self.getValidity():
-            print("Is Valid")
-            self.getAverageAll()
-            self.getTime()
-            # self.doCSV()
-        # self.evenState = not(self.evenState)
-        self.clearAll()        
+    # def changeState(self):
+    #     if self.getValidity():
+    #         print("Is Valid")
+    #         self.getAverageAll()
+    #         self.getTime()
+    #         # self.doCSV()
+    #     # self.evenState = not(self.evenState)
+    #     self.clearAll()        
 
     def currentUpdatePM(self):
         print("PM Data Read")
@@ -392,7 +391,7 @@ class node:
             humidityCalibrated    = -1.0
             dewPointCalibrated    = -1.0          
 
-        dateTimeNow = self.getTime()
+        dateTimeNow = self.getTimeV2()
 
         sensorDictionary = OrderedDict([
                 ("dateTime"         ,self.dateTimeStrCSV),
