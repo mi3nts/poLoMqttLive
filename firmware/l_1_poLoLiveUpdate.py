@@ -55,8 +55,8 @@ def isEven(numberIn):
 
 def getStateV2(timeIn):
     stateOut = int((timeIn + liveSpanSec/2)/liveSpanSec);
-    print("Current State")
-    print(stateOut)
+    # print("Current State")
+    # print(stateOut)
     return stateOut;
 
 def getNodeIndexV2(nodeID):
