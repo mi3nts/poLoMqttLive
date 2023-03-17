@@ -193,9 +193,9 @@ class node:
         # Zero State means current time is on an even minute
         # for example minutes are odd and seconds are more than 30 or 
         # minutes are even seconds are less  or equal to 30 
-        print("Current State")
+        # print("Current State")
         stateOut = int((timeIn + liveSpanSec/2)/liveSpanSec);
-        print(stateOut)
+        # print(stateOut)
         return stateOut;
 
 
