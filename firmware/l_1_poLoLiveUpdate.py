@@ -89,10 +89,8 @@ def on_connect(client, userdata, flags, rc):
         print("Appending  Node: " + nodeID)
         nodeObjects.append(mLN.node(nodeID))
     
-    
-    
 def on_message(client, userdata, msg):
-    currentTimeInSec = time.time()
+ 
     global currentState
     try:
         print()
@@ -112,31 +110,26 @@ def on_message(client, userdata, msg):
         print(sensorDictionary)
 
         dateTimeNow   = datetime.datetime.strptime(sensorDictionary["dateTime"], '%Y-%m-%d %H:%M:%S.%f')
-
-
+        currentTimeInSec = dateTimeNow.timestamp()
         # The current state is determined by the number of seconds elapsed since 1970 
         liveState        = getStateV2(currentTimeInSec)
-
 
         if currentState != liveState:
             currentState = liveState
             print("State Changed")
-            # for nodeObject in nodeObjects:
-            #     nodeObject.changeState()
+            for nodeObject in nodeObjects:
+                nodeObject.changeState(currentTimeInSec)
 
-
-                
         nodeIndex = getNodeIndex(nodeID)
 
         if nodeIndex > 0  and nodeObjects[nodeIndex].climateMdlAvail:
             print("Reading data for Node ID:" + nodeID + " with Node Index " + str(nodeIndex))
-
-            # if sensorID == nodeIDs[nodeIndex]['pmSensor']:
-            #     nodeObjects[nodeIndex].nodeReaderPM(sensorDictionary)
-            # if sensorID == nodeIDs[nodeIndex]['climateSensor']:
-            #     nodeObjects[nodeIndex].nodeReaderClimate(sensorDictionary)
-            # if sensorID == nodeIDs[nodeIndex]['gpsSensor']:
-            #     nodeObjects[nodeIndex].nodeReaderGPS(sensorDictionary)
+            if sensorID == nodeIDs[nodeIndex]['pmSensor']:
+                nodeObjects[nodeIndex].nodeReaderPM(sensorDictionary)
+            if sensorID == nodeIDs[nodeIndex]['climateSensor']:
+                nodeObjects[nodeIndex].nodeReaderClimate(sensorDictionary)
+            if sensorID == nodeIDs[nodeIndex]['gpsSensor']:
+                nodeObjects[nodeIndex].nodeReaderGPS(sensorDictionary)
 
                 
 

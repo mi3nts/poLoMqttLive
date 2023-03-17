@@ -66,8 +66,6 @@ mqttOn         = mD.mqttOn
 
 nodeIDs              = mD.mintsDefinitions['nodeIDs']
 
-
-
 def getGPS(nodeID):
     for nodeDataCurrent in nodeIDs:
         nodeIDCurrent              = nodeDataCurrent['nodeID']
@@ -77,6 +75,18 @@ def getGPS(nodeID):
             altitude       = nodeDataCurrent['altitude']
 
             return latitude,longitude,altitude;
+
+    return "","";
+
+
+def getSensorsV2(nodeID):
+    for nodeDataCurrent in nodeIDs:
+        nodeIDCurrent              = nodeDataCurrent['nodeID']
+        if(nodeID == nodeIDCurrent):
+            pmSensor       = nodeDataCurrent['pmSensor']
+            climateSensor  = nodeDataCurrent['climateSensor']
+            gpsSensor      = nodeDataCurrent['gpsSensor']
+            return pmSensor,climateSensor,gpsSensor;
 
     return "","";
 
