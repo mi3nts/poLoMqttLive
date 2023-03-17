@@ -107,7 +107,7 @@ def on_message(client, userdata, msg):
 
         # This function does not write any CSVs - It only returns the sensor dictionary
         sensorDictionary = mLR.sensorReceiveLoRa(dateTime,nodeID,sensorID,framePort,base16Data)
-        print(sensorDictionary)
+        # print(sensorDictionary)
 
         dateTimeNow   = datetime.datetime.strptime(sensorDictionary["dateTime"], '%Y-%m-%d %H:%M:%S.%f')
         currentTimeInSec = dateTimeNow.timestamp()

@@ -241,7 +241,7 @@ class node:
 
 
 
-    def changeStateV2(self,timeIn):
+    def changeStateV2(self):
         if self.getValidity():
             print("Is Valid")
             self.getAverageAll()
