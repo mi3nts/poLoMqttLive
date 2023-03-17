@@ -242,7 +242,7 @@ class node:
 
     def changeStateV2(self):
         if self.getValidity():
-            print("Is Valid")
+            # print("Is Valid")
             self.getAverageAll()
             self.getTimeV2()
             self.doCSV()

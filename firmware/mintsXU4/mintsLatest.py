@@ -77,7 +77,7 @@ def writeMQTTLatestRepublish(sensorDictionary,sensorName,nodeID):
 
     if connect(mqtt_client, mqttUN, mqttPW, broker, port):
         try:
-            print("Here")
+            # print("Here")
             mqtt_client.publish(nodeID+"/"+sensorName,json.dumps(sensorDictionary))
 
         except Exception as e:
