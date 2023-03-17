@@ -219,7 +219,9 @@ class node:
                 "-" + str(checkTime.day).zfill(2) + \
                 " " + str(checkTime.hour).zfill(2) + \
                 ":" + str(checkTime.minute).zfill(2) + \
-                ":" + str(checkTime.second).zfill(2)           
+                ":" + str(checkTime.second).zfill(2) + \
+                    + ".000" 
+                
         return ;
 
     # def getTime(self):
