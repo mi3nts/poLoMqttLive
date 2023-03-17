@@ -110,6 +110,7 @@ def on_message(client, userdata, msg):
         # print(sensorDictionary)
 
         dateTimeNow   = datetime.datetime.strptime(sensorDictionary["dateTime"], '%Y-%m-%d %H:%M:%S.%f')
+        print(dateTimeNow)
         currentTimeInSec = dateTimeNow.timestamp()
         # The current state is determined by the number of seconds elapsed since 1970 
         liveState        = getStateV2(currentTimeInSec)
