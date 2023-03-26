@@ -1,0 +1,283 @@
+dataFolder : "/mfs/io/groups/lary/mintsData"
+tlsCert : "/mfs/io/groups/lary/certs/ca-certificates.crt"
+poolWorkers: 10
+
+# Used for average 
+timeSpan: '30S'
+
+# Used for live data reporting
+liveSpanSec: 30
+airmarID: "001e0610c0e4"
+
+binsPerColumn  : 100
+numberPerBin   : 4
+
+pValid         : 0.15
+
+minLayers : 5
+maxLayers  : 10
+MaxEvaluations : 20
+
+nodeIDs:
+  - nodeID: 2cf7f12032305202
+    climateSensor: "BME688CNR"
+    climateSensorBegin: "2023-01-01"
+    pmSensor: "IPS7100CNR"
+    pmSensorBegin: "2023-01-01"
+    gpsSensor: "GPGGAPL"
+    gpsSensorBegin: "2023-01-01"
+    gpsSensor: "GPGGAPL"
+    gpsSensorBegin: "2023-01-01"
+    latitude: 32.992451667
+    longitude: -96.757813333
+    altitude: 222.2
+  - nodeID: 2cf7f1203230535d
+    climateSensor: "BME688CNR"
+    climateSensorBegin: "2023-01-01"
+    pmSensor: "IPS7100CNR"
+    pmSensorBegin: "2023-01-01"
+    gpsSensor: "GPGGAPL"
+    gpsSensorBegin: "2023-01-01"
+    latitude: 32.992451667
+    longitude: -96.757813333
+    altitude: 222.2
+  - nodeID: 2cf7f12032304ba6
+    climateSensor: "BME688CNR"
+    climateSensorBegin: "2023-01-01"
+    pmSensor: "IPS7100CNR"
+    pmSensorBegin: "2023-01-01"
+    gpsSensor: "GPGGAPL"
+    gpsSensorBegin: "2023-01-01"
+    latitude: 32.992451667
+    longitude: -96.757813333
+    altitude: 222.2
+  - nodeID: 2cf7f12032303543
+    climateSensor: "BME688CNR"
+    climateSensorBegin: "2023-01-01"
+    pmSensor: "IPS7100CNR"
+    pmSensorBegin: "2023-01-01"
+    gpsSensor: "GPGGAPL"
+    gpsSensorBegin: "2023-01-01"
+    latitude: 32.992451667
+    longitude: -96.757813333
+    altitude: 222.2
+  - nodeID: 2cf7f12032304b53
+    climateSensor: "BME688CNR"
+    climateSensorBegin: "2023-01-01"
+    pmSensor: "IPS7100CNR"
+    pmSensorBegin: "2023-01-01"
+    gpsSensor: "GPGGAPL"
+    gpsSensorBegin: "2023-01-01"
+    latitude: 32.992451667
+    longitude: -96.757813333
+    altitude: 222.2
+  - nodeID: 2cf7f12032304aec
+    climateSensor: "BME688CNR"
+    climateSensorBegin: "2023-01-01"
+    pmSensor: "IPS7100CNR"
+    pmSensorBegin: "2023-01-01"
+    gpsSensor: "GPGGAPL"
+    gpsSensorBegin: "2023-01-01"
+    latitude: 32.992451667
+    longitude: -96.757813333
+    altitude: 222.2
+  - nodeID: 2cf7f12032304bd8
+    climateSensor: "BME688CNR"
+    climateSensorBegin: "2023-01-01"
+    pmSensor: "IPS7100CNR"
+    pmSensorBegin: "2023-01-01"
+    gpsSensor: "GPGGAPL"
+    gpsSensorBegin: "2023-01-01"
+    latitude: 32.992451667
+    longitude: -96.757813333
+    altitude: 222.2
+  - nodeID: 2cf7f12032303bc6
+    climateSensor: "BME688CNR"
+    climateSensorBegin: "2023-01-01"
+    pmSensor: "IPS7100CNR"
+    pmSensorBegin: "2023-01-01"
+    gpsSensor: "GPGGAPL"
+    gpsSensorBegin: "2023-01-01"
+    latitude: 32.992451667
+    longitude: -96.757813333
+    altitude: 222.2
+  - nodeID: 2cf7f12032303e79
+    climateSensor: "BME688CNR"
+    climateSensorBegin: "2023-01-01"
+    pmSensor: "IPS7100CNR"
+    pmSensorBegin: "2023-01-01"
+    gpsSensor: "GPGGAPL"
+    gpsSensorBegin: "2023-01-01"
+    latitude: 32.992451667
+    longitude: -96.757813333
+    altitude: 222.2
+  - nodeID: 2cf7f12032303b33
+    climateSensor: "BME688CNR"
+    climateSensorBegin: "2023-01-01"
+    pmSensor: "IPS7100CNR"
+    pmSensorBegin: "2023-01-01"
+    gpsSensor: "GPGGAPL"
+    gpsSensorBegin: "2023-01-01"
+    latitude: 32.992451667
+    longitude: -96.757813333
+    altitude: 222.2
+  - nodeID: 2cf7f12032304cc3
+    climateSensor: "BME688CNR"
+    climateSensorBegin: "2023-01-01"
+    pmSensor: "IPS7100CNR"
+    pmSensorBegin: "2023-01-01"
+    gpsSensor: "GPGGAPL"
+    gpsSensorBegin: "2023-01-01"
+    latitude: 32.992451667
+    longitude: -96.757813333
+    altitude: 222.2
+  - nodeID: 2cf7f120323035df
+    climateSensor: "BME688CNR"
+    climateSensorBegin: "2023-01-01"
+    pmSensor: "IPS7100CNR"
+    pmSensorBegin: "2023-01-01"
+    gpsSensor: "GPGGAPL"
+    gpsSensorBegin: "2023-01-01"
+    latitude: 32.992451667
+    longitude: -96.757813333
+    altitude: 222.2
+  - nodeID: 2cf7f12032304b8c
+    climateSensor: "BME688CNR"
+    climateSensorBegin: "2023-01-01"
+    pmSensor: "IPS7100CNR"
+    pmSensorBegin: "2023-01-01"
+    gpsSensor: "GPGGAPL"
+    gpsSensorBegin: "2023-01-01"
+    latitude: 32.992451667
+    longitude: -96.757813333
+    altitude: 222.2
+  - nodeID: 2cf7f12032303bf7
+    climateSensor: "BME688CNR"
+    climateSensorBegin: "2023-01-01"
+    pmSensor: "IPS7100CNR"
+    pmSensorBegin: "2023-01-01"
+    gpsSensor: "GPGGAPL"
+    gpsSensorBegin: "2023-01-01"
+    latitude: 32.992451667
+    longitude: -96.757813333
+    altitude: 222.2
+  - nodeID: 2cf7f12032303b16
+    climateSensor: "BME688CNR"
+    climateSensorBegin: "2023-01-01"
+    pmSensor: "IPS7100CNR"
+    pmSensorBegin: "2023-01-01"
+    gpsSensor: "GPGGAPL"
+    gpsSensorBegin: "2023-01-01"
+    latitude: 32.992451667
+    longitude: -96.757813333
+    altitude: 222.2
+  - nodeID: 2cf7f120323034d8
+    climateSensor: "BME688CNR"
+    climateSensorBegin: "2023-01-01"
+    pmSensor: "IPS7100CNR"
+    pmSensorBegin: "2023-01-01"
+    gpsSensor: "GPGGAPL"
+    gpsSensorBegin: "2023-01-01"
+    latitude: 32.992451667
+    longitude: -96.757813333
+    altitude: 222.2
+  - nodeID: 2cf7f12032304ce7
+    climateSensor: "BME688CNR"
+    climateSensorBegin: "2023-01-01"
+    pmSensor: "IPS7100CNR"
+    pmSensorBegin: "2023-01-01"
+    gpsSensor: "GPGGAPL"
+    gpsSensorBegin: "2023-01-01"
+    latitude: 32.992451667
+    longitude: -96.757813333
+    altitude: 222.2
+  - nodeID: 2cf7f12032304a10
+    climateSensor: "BME688CNR"
+    climateSensorBegin: "2023-01-01"
+    pmSensor: "IPS7100CNR"
+    pmSensorBegin: "2023-01-01"
+    gpsSensor: "GPGGAPL"
+    gpsSensorBegin: "2023-01-01"
+    latitude: 32.992451667
+    longitude: -96.757813333
+    altitude: 222.2
+  - nodeID: 2cf7f12032303ad1
+    climateSensor: "BME688CNR"
+    climateSensorBegin: "2023-01-01"
+    pmSensor: "IPS7100CNR"
+    pmSensorBegin: "2023-01-01"
+    gpsSensor: "GPGGAPL"
+    gpsSensorBegin: "2023-01-01"
+    latitude: 32.992451667
+    longitude: -96.757813333
+    altitude: 222.2
+  - nodeID: 2cf7f120323075e4
+    climateSensor: "BME688CNR"
+    climateSensorBegin: "2023-01-01"
+    pmSensor: "IPS7100CNR"
+    pmSensorBegin: "2023-01-01"
+    gpsSensor: "GPGGAPL"
+    gpsSensorBegin: "2023-01-01"
+    latitude: 32.992451667
+    longitude: -96.757813333
+    altitude: 222.2
+  - nodeID: 2cf7f12032303bdd
+    climateSensor: "BME688CNR"
+    climateSensorBegin: "2023-01-01"
+    pmSensor: "IPS7100CNR"
+    pmSensorBegin: "2023-01-01"
+    gpsSensor: "GPGGAPL"
+    gpsSensorBegin: "2023-01-01"
+    latitude: 32.992451667
+    longitude: -96.757813333
+    altitude: 222.2
+  
+sensors:
+  - IPS7100CNR
+  - BME688CNR
+  - GPGGAPL
+
+climateTargets:
+    - target: "WIMDA_airTemperature"
+      BME280inputs:
+        - "BME280_Temperature"
+      BME680inputs:
+        - "BME680_temperature"   
+      BME688CNRinputs:
+        - "BME688CNR_temperature"           
+    - target: "YXXDR_barrometricPressureBars"
+      BME280inputs:
+        - "BME280_Pressure"
+      BME680inputs:
+        - "BME680_pressure"  
+      BME688CNRinputs:
+        - "BME688CNR_pressure"          
+    - target: "WIMDA_relativeHumidity"
+      BME280inputs:
+        - "BME280_Humidity"
+      BME680inputs:
+        - "BME680_humidity"   
+      BME688CNRinputs:
+        - "BME688CNR_humidity"   
+    - target: "WIMDA_dewPoint"
+      BME280inputs:
+        - "BME280_Temperature"
+        - "BME280_Pressure"
+        - "BME280_Humidity"
+      BME680inputs:
+        - "BME680_temperature"
+        - "BME680_pressure"
+        - "BME680_humidity"                                           
+      BME688CNRinputs:
+        - "BME688CNR_temperature"
+        - "BME688CNR_pressure"
+        - "BME688CNR_humidity"                                           
+
+
+  
+
+
+
+
+
+
